@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 모바일 청첩장 · v0.5 · Supabase 연동 -->
+<!-- 모바일 청첩장 · v0.6 -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -51,12 +51,6 @@ a{color:inherit}
   box-shadow:0 0 40px rgba(0,0,0,.06);
 }
 
-/* 시그니처: 페이지 전체를 관통하는 실 한 가닥 */
-#paper::before{
-  content:''; position:absolute; left:50%; top:0; bottom:0;
-  width:var(--thread); background:var(--line);
-  transform:translateX(-50%); z-index:0; pointer-events:none;
-}
 .sec{position:relative; z-index:1; padding:64px var(--pad)}
 .sec--flush{padding-left:0; padding-right:0}
 
@@ -633,6 +627,8 @@ const DB = {
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const el = (t, cls, html) => { const n = document.createElement(t); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; };
+const lastEmail = () => { try { return localStorage.getItem('wedding:email') || ''; } catch { return ''; } };
+const rememberEmail = (v) => { try { localStorage.setItem('wedding:email', v); } catch { } };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 function merge(base, over) {
@@ -1348,23 +1344,26 @@ function renderAdmin() {
     a.innerHTML = `<div class="gate">
       <div class="k">관리자</div>
       <div class="s">Supabase에 등록한 계정으로 로그인하세요</div>
-      <div class="field"><input id="g-mail" type="email" autocomplete="username" placeholder="이메일"></div>
+      <div class="field"><input id="g-mail" type="email" autocomplete="username" placeholder="이메일" value="${esc(lastEmail())}"></div>
       <div class="field"><input id="g-pw" type="password" autocomplete="current-password" placeholder="비밀번호"></div>
       <button class="btn" id="g-go">로그인</button>
       <p class="hint" style="margin-top:18px"><a href="#">청첩장으로 돌아가기</a></p></div>`;
     $('#g-go').onclick = (e) => busy(e.currentTarget, '확인 중…', async () => {
-      await DB.signIn($('#g-mail').value.trim(), $('#g-pw').value);
+      const mail = $('#g-mail').value.trim();
+      await DB.signIn(mail, $('#g-pw').value);
+      rememberEmail(mail);
       signedIn = true;
       try { RS = await DB.listRsvp(); } catch { RS = []; }
       renderAdmin();
     });
     $('#g-pw').onkeydown = e => { if (e.key === 'Enter') $('#g-go').click(); };
+    (lastEmail() ? $('#g-pw') : $('#g-mail')).focus();
     return;
   }
 
   a.innerHTML = `
     <div class="ah">
-      <div class="ttl">청첩장 관리 <span style="color:var(--mist);font-size:11px">v0.5</span>
+      <div class="ttl">청첩장 관리 <span style="color:var(--mist);font-size:11px">v0.6</span>
         ${dirty ? '<span style="color:var(--point)"> • 저장 안 됨</span>' : ''}</div>
       <div class="acts">
         <button id="prev">미리보기</button>
