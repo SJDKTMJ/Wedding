@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 모바일 청첩장 · v0.6 -->
+<!-- 모바일 청첩장 · TOUCH TO MEET stable v1.0 -->
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -11,7 +11,7 @@
 <meta property="og:image" id="og-image" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 /* ─────────────────────────────────────────────
@@ -315,22 +315,86 @@ table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:
 .gate{max-width:320px; margin:22vh auto; padding:0 20px; text-align:center}
 .gate .k{font-family:var(--serif); font-size:18px; margin-bottom:6px}
 .gate .s{font-size:12.5px; color:var(--mist); margin-bottom:22px}
+
+/* ═══════════════════════════════════════════════════════════
+   EDITORIAL MOTION · TWO TO ONE · TOUCH INTRO
+   첫 진입은 0% 상태에서 멈춘다. TOUCH TO MEET을 터치하면
+   25% → 50% → 75% → 100% 스토리보드 순서로 자동 진행하고,
+   100% 완료 뒤에만 본문 스크롤을 해제한다.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --editorial-cream:#E8D0B7; --editorial-navy:#19304B; --editorial-rust:#A65F35;
+  --editorial-charcoal:#1C2430; --editorial-serif:'Cormorant Garamond','Nanum Myeongjo',serif;
+  --ease-editorial:cubic-bezier(.22,.61,.36,1);
+}
+body{background:#E8E5DF}
+#paper{box-shadow:0 18px 70px rgba(26,36,48,.08)}
+#hero{height:auto;padding:0;background:linear-gradient(180deg,#F7F2E9 0%,var(--paper) 100%);overflow:visible;position:relative}
+.hero-sticky{position:relative;top:0;height:100svh;min-height:680px;padding:0 18px 104px;overflow:hidden;background:linear-gradient(180deg,#F7F2E9 0%,var(--paper) 100%)}
+.hero-topline{height:74px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;position:relative;z-index:8;font-family:var(--editorial-serif);font-size:10px;letter-spacing:.24em;color:var(--editorial-navy);opacity:var(--topOpacity,0);transform:translateY(var(--topY,-8px));will-change:opacity,transform}
+#hero-vol{user-select:none;-webkit-tap-highlight-color:transparent}.hero-topline-center{font-size:9px;letter-spacing:.32em;opacity:.62;white-space:nowrap}.hero-menu{justify-self:end;padding:8px 0 8px 10px;border:0;background:none;font-family:var(--editorial-serif);font-size:10px;letter-spacing:.24em;color:var(--editorial-navy)}
+.hero-motion{position:relative;height:min(68svh,610px);min-height:520px;overflow:hidden;background:#E3DED6;isolation:isolate}
+.hero-photo-mask{position:absolute;inset:0;z-index:1;overflow:hidden;clip-path:inset(0 var(--photoInset,46.5%) 0 var(--photoInset,46.5%));will-change:clip-path}
+.hero-photo-mask img{width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(var(--photoScale,1.055));will-change:transform}
+.hero-photo-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,23,37,.09),rgba(11,23,37,.02) 42%,rgba(11,23,37,.42))}
+.split-panel{position:absolute;top:0;bottom:0;width:var(--panelWidth,50.2%);z-index:4;overflow:hidden;opacity:var(--panelOpacity,1);will-change:width,opacity}
+.split-panel--groom{left:0;background:var(--editorial-cream);color:var(--editorial-rust)}.split-panel--bride{right:0;background:var(--editorial-navy);color:rgba(231,235,239,.83)}
+.split-initial{position:absolute;top:25px;font-family:var(--editorial-serif);font-size:18px;opacity:var(--splitTextOpacity,1)}.split-panel--groom .split-initial{left:24px}.split-panel--bride .split-initial{right:24px}
+.split-name{position:absolute;top:50%;font-family:var(--editorial-serif);font-size:35px;letter-spacing:.08em;line-height:1;writing-mode:vertical-rl;text-orientation:mixed;transform:translateY(-50%);opacity:var(--splitTextOpacity,1)}.split-panel--groom .split-name{left:40px}.split-panel--bride .split-name{right:40px}
+.scroll-start{position:absolute;left:0;right:0;bottom:26px;z-index:5;text-align:center;font-family:var(--editorial-serif);font-size:8px;letter-spacing:.36em;color:rgba(255,255,255,.8);mix-blend-mode:difference;opacity:var(--startCueOpacity,1);transform:translateY(var(--startCueY,0));pointer-events:none;will-change:opacity,transform}
+.scroll-start::after{content:'';display:block;width:34px;height:1px;margin:10px auto 0;background:currentColor;transform-origin:center;animation:touchMeetPulse 1.65s ease-in-out infinite}.intro-playing .scroll-start::after,.intro-complete .scroll-start::after{animation:none}@keyframes touchMeetPulse{0%,100%{transform:scaleX(.35);opacity:.35}50%{transform:scaleX(1);opacity:1}}
+body.intro-pending,body.intro-playing{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}body.intro-pending #hero-motion{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}body.intro-pending .hero-menu,body.intro-playing .hero-menu{pointer-events:none}.intro-playing #hero-motion{pointer-events:none}.intro-complete #hero-motion{cursor:default}body.admin{position:static!important;inset:auto!important;width:auto!important;height:auto!important;overflow:auto!important}
+.hero-editorial-copy{position:absolute;left:24px;right:24px;bottom:86px;z-index:6;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.18)}
+.name-mask{overflow:hidden;white-space:nowrap}.groom-mask{clip-path:inset(0 var(--groomClip,100%) 0 0)}.bride-mask{clip-path:inset(0 0 0 var(--brideClip,100%));text-align:right;margin-top:8px}.name-mask span{display:block;font-family:var(--editorial-serif);font-size:clamp(34px,10vw,47px);font-weight:400;line-height:.92;transform:translateX(-3px);will-change:letter-spacing,clip-path}.groom-mask span{letter-spacing:var(--groomTrack,.55em)}.bride-mask span{letter-spacing:var(--brideTrack,.55em)}
+.and-mark{display:flex;align-items:center;gap:10px;margin:12px 3px 13px;font-family:var(--editorial-serif);font-size:9px;letter-spacing:.32em;color:rgba(255,255,255,.76);opacity:var(--andOpacity,0);will-change:opacity}.and-mark i{height:1px;flex:1;background:rgba(255,255,255,.54);transform:scaleX(var(--andScale,0));will-change:transform}.and-mark i:first-child{transform-origin:right}.and-mark i:last-child{transform-origin:left}
+.hero-korean{position:absolute;left:27px;bottom:28px;z-index:6;color:#fff;font-family:var(--serif);font-size:13px;letter-spacing:.22em;opacity:var(--metaOpacity,0);transform:translateY(var(--metaY,8px));will-change:opacity,transform}
+.scroll-cue{position:absolute;right:25px;bottom:25px;z-index:6;display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.72);font-family:var(--editorial-serif);font-size:8px;letter-spacing:.28em;opacity:var(--metaOpacity,0);transform:translateY(var(--metaY,8px));will-change:opacity,transform}.scroll-cue i{width:34px;height:1px;background:currentColor;position:relative}.scroll-cue i::after{content:'';position:absolute;right:0;top:-2px;width:5px;height:5px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
+#hero .when{padding:30px 4px 0;opacity:var(--whenOpacity,0);transform:translateY(var(--whenY,12px));text-align:left;display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:end;will-change:opacity,transform}#hero .when .d{font-family:var(--editorial-serif);font-size:21px;letter-spacing:.13em;color:var(--editorial-navy);grid-column:1}#hero .when .t{font-size:10px;letter-spacing:.16em;color:var(--mist);grid-column:1;margin-top:2px}#hero .when .p{font-family:var(--serif);font-size:13px;color:var(--editorial-navy);grid-column:2;grid-row:1/3;text-align:right;margin:0;max-width:155px;line-height:1.65}
+.sec{padding:82px var(--pad)}.mark{width:6px;height:6px;margin-bottom:27px;border-color:var(--editorial-navy);background:transparent}.eyebrow{font-family:var(--editorial-serif);font-size:9px;letter-spacing:.42em;color:#8290A2}.sec-title{font-family:var(--serif);font-size:21px;letter-spacing:.09em;color:var(--editorial-charcoal);margin-bottom:36px}.greet{font-size:15px;line-height:2.35;color:#3A414A}.greet-poem{font-size:13.5px;line-height:2.2;color:#5B6C81}.divider{max-width:78px;background:#D6D0C7;margin:30px auto}
+.cal .mon{font-family:var(--editorial-serif);font-size:21px;color:var(--editorial-navy)}.cal td.on .day{background:var(--editorial-rust)}.dday b{color:var(--editorial-rust)}.count .num{font-family:var(--editorial-serif);font-size:22px}.count .lab{font-family:var(--editorial-serif);font-size:8px;letter-spacing:.25em}
+#s-gallery{padding-left:14px;padding-right:14px}.grid{grid-template-columns:repeat(2,1fr);gap:9px}.grid button{aspect-ratio:4/5;background:#DDD8D0;position:relative;overflow:hidden}.grid button:nth-child(3n){grid-column:1/-1;aspect-ratio:16/11;margin:7px 22px}.grid img{width:100%;height:calc(100% + 40px);object-fit:cover;transform:translateY(var(--parallax,0px)) scale(1.025);transition:transform .15s linear}.more{font-family:var(--editorial-serif);letter-spacing:.25em}
+#map{height:240px;border-color:#D8D0C5}.navbtns{gap:0}.navbtns a,.navbtns button{border-color:#D8D0C5;background:rgba(255,255,255,.58);font-size:11px;padding:13px 0}.tp .k{color:var(--editorial-navy)}.btn{background:var(--editorial-navy);border-color:var(--editorial-navy)}.btn.ghost{background:transparent;color:var(--editorial-navy)}
+.dock{background:rgba(19,29,42,.97);border-top:0;color:#F6F2E9;box-shadow:0 -12px 32px rgba(22,27,34,.09);opacity:0}.dock button{color:#F6F2E9;padding:15px 0 14px;font-family:var(--serif);font-size:11px;letter-spacing:.12em;position:relative}.dock button+button{border-left:1px solid rgba(255,255,255,.13)}.dock button::after{content:'';position:absolute;bottom:8px;left:50%;width:16px;height:1px;background:#DDA36F;transform:translateX(-50%) scaleX(0);transition:transform .25s}.dock button.active::after{transform:translateX(-50%) scaleX(1)}
+.rise{opacity:0;transform:translateY(14px);filter:blur(1.5px);transition:opacity .85s ease,transform .9s var(--ease-editorial),filter .8s ease}.rise.in{opacity:1;transform:none;filter:none}
+@media(max-width:360px){.hero-sticky{padding-left:13px;padding-right:13px;min-height:620px}.hero-topline{height:65px}.hero-motion{min-height:485px}.name-mask span{font-size:34px}.hero-editorial-copy{left:18px;right:18px}.split-name{font-size:31px}#hero .when .d{font-size:19px}.sec{padding-left:22px;padding-right:22px}}
+@media(max-height:740px){.hero-sticky{min-height:0;padding-bottom:78px}.hero-topline{height:62px}.hero-motion{height:calc(100svh - 196px);min-height:410px}#hero .when{padding-top:16px}.name-mask span{font-size:clamp(31px,9vw,40px)}}
+@media(prefers-reduced-motion:reduce){.scroll-start::after{animation:none}.grid img{transform:none!important;height:100%!important}}
+
 </style>
 </head>
-<body>
+<body class="intro-pending">
 
 <!-- ══ 청첩장 ══════════════════════════════ -->
 <div id="paper">
-  <section id="hero">
-    <div class="frame">
-      <img id="hero-img" alt="">
-      <span class="stamp" id="hero-stamp">we are getting married</span>
-      <div class="names" id="names"></div>
+  <section id="hero" aria-label="웨딩 인트로">
+    <div class="hero-sticky">
+    <div class="hero-topline">
+      <span id="hero-vol">VOL. 01</span>
+      <span class="hero-topline-center" id="hero-stamp">WEDDING INVITATION</span>
+      <button class="hero-menu" type="button" data-go="s-greet">MENU</button>
+    </div>
+    <div class="hero-motion" id="hero-motion" role="button" tabindex="0" aria-label="터치하여 청첩장 열기">
+      <div class="split-panel split-panel--groom" aria-hidden="true">
+        <span class="split-initial">K</span><span class="split-name" id="split-groom">KYUNGTAE</span>
+      </div>
+      <div class="split-panel split-panel--bride" aria-hidden="true">
+        <span class="split-initial">M</span><span class="split-name" id="split-bride">MINJU</span>
+      </div>
+      <div class="hero-photo-mask">
+        <img id="hero-img" alt="신랑 신부 대표 사진"><div class="hero-photo-shade" aria-hidden="true"></div>
+      </div>
+      <div class="scroll-start" aria-hidden="true">TOUCH TO MEET</div>
+      <div class="hero-editorial-copy">
+        <div class="name-mask groom-mask"><span id="hero-groom-en">KYUNGTAE</span></div>
+        <div class="and-mark" aria-hidden="true"><i></i><span>AND</span><i></i></div>
+        <div class="name-mask bride-mask"><span id="hero-bride-en">MINJU</span></div>
+      </div>
+      <div class="hero-korean" id="names"></div>
+      <div class="scroll-cue" aria-hidden="true"><span>SCROLL</span><i></i></div>
     </div>
     <div class="when">
-      <div class="d" id="when-date"></div>
-      <div class="t" id="when-time"></div>
-      <div class="p" id="when-place"></div>
+      <div class="d" id="when-date"></div><div class="t" id="when-time"></div><div class="p" id="when-place"></div>
+    </div>
     </div>
   </section>
 
@@ -440,6 +504,212 @@ table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:
 <!-- ══ 관리자 ══════════════════════════════ -->
 <div id="admin"></div>
 
+<script>
+/* ═══════════════════════════════════════════════════════════
+   TOUCH TO MEET · EARLY INTRO ENGINE
+   - Supabase/CDN 초기화와 무관하게 DOM이 만들어지자마자 바인딩
+   - 최초 진입: APART 상태에서 정지
+   - TOUCH/CLICK/ENTER/SPACE: APPROACH → MEET → MERGE → ONE
+   - 완료 전 스크롤 잠금, 완료 후 즉시 해제
+   ═══════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
+
+  var state = 'waiting';
+  var raf = 0;
+  var bound = false;
+  var startedAt = 0;
+  var motion = document.getElementById('hero-motion');
+  var hero = document.getElementById('hero');
+  var dock = document.getElementById('dock');
+
+  var KEYS = [
+    { t: 0,    p: 0.00 },
+    { t: 620,  p: 0.25 },
+    { t: 1260, p: 0.50 },
+    { t: 1960, p: 0.75 },
+    { t: 2820, p: 1.00 }
+  ];
+
+  function clamp(n){ return Math.max(0, Math.min(1, n)); }
+  function seg(p,a,b){ return clamp((p-a)/(b-a)); }
+  function smooth(t){ return t*t*(3-2*t); }
+
+  function announce(next){
+    state = next;
+    try {
+      window.dispatchEvent(new CustomEvent('weddingintrostate', { detail:{ state:next } }));
+    } catch(_) {}
+  }
+
+  function lockPage(){
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.height = '100%';
+    document.body.classList.add('intro-pending');
+    document.body.classList.remove('intro-playing','intro-complete');
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100%';
+    document.body.style.touchAction = 'none';
+    try { window.scrollTo(0,0); } catch(_) {}
+  }
+
+  function unlockPage(){
+    document.documentElement.style.overflow = '';
+    document.documentElement.style.height = '';
+    document.body.style.overflow = '';
+    document.body.style.height = '';
+    document.body.style.touchAction = '';
+    document.body.classList.remove('intro-pending','intro-playing');
+    document.body.classList.add('intro-complete');
+  }
+
+  function apply(p){
+    if(!hero) return;
+    p = clamp(p);
+
+    var top    = smooth(seg(p,.00,.08));
+    var groom  = smooth(seg(p,.06,.25));
+    var bride  = smooth(seg(p,.14,.33));
+    var photo  = smooth(seg(p,.20,.72));
+    var panel  = smooth(seg(p,.20,.76));
+    var lines  = smooth(seg(p,.52,.69));
+    var meta   = smooth(seg(p,.67,.83));
+    var when   = smooth(seg(p,.78,.96));
+    var dockP  = smooth(seg(p,.84,.98));
+    var cueOut = smooth(seg(p,.03,.20));
+
+    hero.style.setProperty('--topOpacity', top.toFixed(3));
+    hero.style.setProperty('--topY', (-8*(1-top)).toFixed(2)+'px');
+    hero.style.setProperty('--groomClip', (100*(1-groom)).toFixed(2)+'%');
+    hero.style.setProperty('--brideClip', (100*(1-bride)).toFixed(2)+'%');
+    hero.style.setProperty('--groomTrack', (.13+.42*(1-groom)).toFixed(3)+'em');
+    hero.style.setProperty('--brideTrack', (.13+.42*(1-bride)).toFixed(3)+'em');
+    hero.style.setProperty('--photoInset', (46.5*(1-photo)).toFixed(2)+'%');
+    hero.style.setProperty('--photoScale', (1+.055*(1-photo)).toFixed(4));
+    hero.style.setProperty('--panelWidth', (50.2*(1-panel)).toFixed(2)+'%');
+    hero.style.setProperty('--panelOpacity', (1-smooth(seg(p,.62,.78))).toFixed(3));
+    hero.style.setProperty('--splitTextOpacity', (1-smooth(seg(p,.48,.69))).toFixed(3));
+    hero.style.setProperty('--andOpacity', lines.toFixed(3));
+    hero.style.setProperty('--andScale', lines.toFixed(3));
+    hero.style.setProperty('--metaOpacity', meta.toFixed(3));
+    hero.style.setProperty('--metaY', (8*(1-meta)).toFixed(2)+'px');
+    hero.style.setProperty('--whenOpacity', when.toFixed(3));
+    hero.style.setProperty('--whenY', (12*(1-when)).toFixed(2)+'px');
+    hero.style.setProperty('--startCueOpacity', (1-cueOut).toFixed(3));
+    hero.style.setProperty('--startCueY', (-5*cueOut).toFixed(2)+'px');
+
+    if(dock){
+      dock.style.opacity = dockP.toFixed(3);
+      dock.style.transform = 'translate(-50%,'+(100*(1-dockP)).toFixed(2)+'%)';
+      dock.style.pointerEvents = (state==='complete' && dockP>.85) ? 'auto' : 'none';
+    }
+  }
+
+  function timeline(ms){
+    if(ms<=KEYS[0].t) return KEYS[0].p;
+    for(var i=1;i<KEYS.length;i++){
+      var a=KEYS[i-1], b=KEYS[i];
+      if(ms<=b.t){
+        var local=smooth(clamp((ms-a.t)/(b.t-a.t)));
+        return a.p+(b.p-a.p)*local;
+      }
+    }
+    return 1;
+  }
+
+  function complete(skipAnimation){
+    if(raf){ cancelAnimationFrame(raf); raf=0; }
+    announce('complete');
+    apply(1);
+    unlockPage();
+    if(motion){
+      motion.removeAttribute('role');
+      motion.removeAttribute('tabindex');
+      motion.removeAttribute('aria-label');
+      motion.style.pointerEvents='';
+    }
+    if(dock) dock.style.pointerEvents='auto';
+  }
+
+  function frame(now){
+    if(state!=='playing') return;
+    var elapsed=now-startedAt;
+    apply(timeline(elapsed));
+    if(elapsed<KEYS[KEYS.length-1].t){
+      raf=requestAnimationFrame(frame);
+    }else{
+      raf=0;
+      complete(false);
+    }
+  }
+
+  function start(ev){
+    if(ev && ev.type==='pointerup' && ev.pointerType==='mouse' && ev.button!==0) return;
+    if(state!=='waiting' || document.body.classList.contains('admin')) return;
+    announce('playing');
+    document.body.classList.remove('intro-pending');
+    document.body.classList.add('intro-playing');
+    document.body.style.touchAction='none';
+    if(motion) motion.style.pointerEvents='none';
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce){ complete(true); return; }
+
+    startedAt=performance.now();
+    raf=requestAnimationFrame(frame);
+  }
+
+  function keydown(e){
+    if(e.key==='Enter' || e.key===' '){
+      e.preventDefault();
+      start(e);
+    }
+  }
+
+  function bind(){
+    if(bound || !motion) return;
+    bound=true;
+    motion.addEventListener('pointerup', start, {passive:true});
+    motion.addEventListener('click', start, {passive:true});
+    motion.addEventListener('touchend', start, {passive:true});
+    motion.addEventListener('keydown', keydown);
+  }
+
+  function reset(){
+    if(raf){ cancelAnimationFrame(raf); raf=0; }
+    announce('waiting');
+    if(motion){
+      motion.setAttribute('role','button');
+      motion.setAttribute('tabindex','0');
+      motion.setAttribute('aria-label','터치하여 청첩장 열기');
+      motion.style.pointerEvents='';
+    }
+    lockPage();
+    apply(0);
+  }
+
+  window.WeddingIntro = {
+    get state(){ return state; },
+    start:start,
+    bind:bind,
+    reset:reset,
+    apply:apply,
+    complete:complete,
+    duration:KEYS[KEYS.length-1].t
+  };
+
+  /* 관리자 진입은 인트로를 건너뛴다. 일반 진입은 즉시 잠그고 대기. */
+  if(location.hash==='#admin'){
+    announce('complete');
+    apply(1);
+    unlockPage();
+  }else{
+    bind();
+    reset();
+  }
+})();
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ═══════════════════════════════════════════════════════════
@@ -467,24 +737,24 @@ const DEFAULTS = {
     point: '#9C3B36', mist: '#8792A6', line: '#E2E1DB',
     serif: "'Gowun Batang', serif"
   },
-  hero: { stamp: 'we are getting married' },
+  hero: { stamp: 'WEDDING INVITATION', volume: 'VOL. 01', groomEn: 'KYUNGTAE', brideEn: 'MINJU' },
   couple: {
     groom: {
-      last: '김', first: '민준', phone: '', order: '아들',
-      father: { name: '김현우', phone: '', late: false },
-      mother: { name: '이수진', phone: '', late: false }
+      last: '김', first: '경태', phone: '', order: '장남',
+      father: { name: '김기영', phone: '', late: false },
+      mother: { name: '이승희', phone: '', late: false }
     },
     bride: {
-      last: '박', first: '서연', phone: '', order: '딸',
-      father: { name: '박성호', phone: '', late: false },
-      mother: { name: '최은영', phone: '', late: false }
+      last: '구', first: '민주', phone: '', order: '장녀',
+      father: { name: '구본능', phone: '', late: false },
+      mother: { name: '전소현', phone: '', late: false }
     }
   },
   wedding: {
-    date: '2026-10-17', time: '12:30',
-    hall: '더채플앳청담', floor: '5층 채플홀',
-    address: '서울 강남구 선릉로162길 8',
-    tel: '', lat: 37.5250, lng: 127.0450, kakaoJsKey: ''
+    date: '2027-01-10', time: '11:00',
+    hall: '르비르모어', floor: '',
+    address: '서울 강남구 테헤란로 406 상제리제센터 A동 2층',
+    tel: '02-501-7000', lat: 37.5058, lng: 127.0490, kakaoJsKey: ''
   },
   greeting: {
     poem: '서로가 마주보며 다져온 사랑을\n이제 함께 한곳을 바라보며\n걸어갈 수 있는 큰 사랑으로 키우고자 합니다.',
@@ -509,11 +779,11 @@ const DEFAULTS = {
   guestbook: { on: true, perPage: 5 },
   bgm: { on: false, url: '', autoplay: false },
   share: {
-    title: '민준 ♥ 서연 결혼합니다',
-    desc: '2026년 10월 17일 토요일 낮 12시 30분\n더채플앳청담 5층 채플홀',
+    title: '경태 ♥ 민주 결혼합니다',
+    desc: '2027년 1월 10일 일요일 오전 11시\n르비르모어',
     kakaoJsKey: ''
   },
-  foot: { sig: '민준 ♥ 서연', cr: '' }
+  foot: { sig: '경태 ♥ 민주', cr: '' }
 };
 
 /* ═══ 3. Supabase 접근 계층 ════════════════════════════════
@@ -743,19 +1013,24 @@ function renderMeta() {
 
 function renderHero() {
   const g = D.couple.groom, b = D.couple.bride, w = D.wedding;
-  $('#hero-img').src = HERO ? HERO.url : PLACEHOLDER('대표 사진');
-  $('#hero-stamp').textContent = D.hero.stamp || '';
-
+  let groomEn = (D.hero.groomEn || 'KYUNGTAE').toUpperCase();
+  // 이전 버전에서 잘못 저장됐을 수 있는 철자는 화면에서 자동 보정한다.
+  if (groomEn === 'KYEONGTAE') groomEn = 'KYUNGTAE';
+  const brideEn = (D.hero.brideEn || 'MINJU').toUpperCase();
+  const heroImg = $('#hero-img');
+  heroImg.src = HERO ? HERO.url : PLACEHOLDER('대표 사진');
+  $('#hero-stamp').textContent = D.hero.stamp || 'WEDDING INVITATION';
+  $('#hero-vol').textContent = D.hero.volume || 'VOL. 01';
+  $('#hero-groom-en').textContent = groomEn; $('#hero-bride-en').textContent = brideEn;
+  $('#split-groom').textContent = groomEn; $('#split-bride').textContent = brideEn;
   const dt = weddingAt(w);
-  $('#names').innerHTML =
-    `<div class="n groom">${esc(g.last + g.first)}</div>` +
-    `<div class="rule"></div>` +
-    `<div class="n bride">${esc(b.last + b.first)}</div>`;
-
-  $('#when-date').textContent =
-    `${dt.getFullYear()} . ${String(dt.getMonth() + 1).padStart(2, '0')} . ${String(dt.getDate()).padStart(2, '0')}`;
+  $('#names').textContent = `${g.last}${g.first}  ·  ${b.last}${b.first}`;
+  $('#when-date').textContent = `${dt.getFullYear()} . ${String(dt.getMonth()+1).padStart(2,'0')} . ${String(dt.getDate()).padStart(2,'0')}`;
   $('#when-time').textContent = `${WEEK_KO[dt.getDay()]}요일 ${timeKo(w.time)}`;
-  $('#when-place').textContent = `${w.hall}${w.floor ? ' ' + w.floor : ''}`;
+  $('#when-place').textContent = `${w.hall}${w.floor ? ' · ' + w.floor : ''}`;
+  if (window.WeddingIntro && window.WeddingIntro.state !== 'playing') {
+    window.WeddingIntro.apply(window.WeddingIntro.state === 'complete' ? 1 : 0);
+  }
 }
 
 const callBtn = (tel) => `<a class="icobtn" href="tel:${esc(tel)}" aria-label="전화 ${esc(tel)}">
@@ -824,10 +1099,11 @@ function renderGallery() {
   sec.hidden = false;
   const show = galleryOpen ? GALLERY : GALLERY.slice(0, 9);
   $('#grid').innerHTML = show.map((p, i) =>
-    `<button data-i="${i}" aria-label="사진 ${i + 1}"><img src="${esc(p.url)}" alt="" loading="lazy"></button>`).join('');
+    `<button data-i="${i}" data-drift="${i % 2 ? -1 : 1}" aria-label="사진 ${i+1}"><img src="${esc(p.url)}" alt="" loading="lazy"></button>`).join('');
   const more = $('#grid-more');
   more.hidden = GALLERY.length <= 9;
   more.textContent = galleryOpen ? 'close' : `more (${GALLERY.length - 9})`;
+  requestAnimationFrame(updateGalleryParallax);
 }
 
 function renderMap() {
@@ -1128,6 +1404,53 @@ function observeRise() {
   $$('.rise').forEach(n => io.observe(n));
 }
 
+/* ── 갤러리 미세 패럴랙스 / 하단 메뉴 상태 ───────────── */
+let galleryRAF = 0;
+function updateGalleryParallax() {
+  galleryRAF = 0;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const vh = window.innerHeight || 800;
+  $$('#grid [data-drift]').forEach(tile => {
+    const r = tile.getBoundingClientRect();
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    const progress = Math.max(-1, Math.min(1, ((r.top + r.height/2) - vh/2) / (vh/2)));
+    const y = Math.round(progress * 20 * (Number(tile.dataset.drift)||1));
+    const img = $('img', tile); if (img) img.style.setProperty('--parallax', `${y}px`);
+  });
+}
+function requestGalleryParallax(){ if(!galleryRAF) galleryRAF=requestAnimationFrame(updateGalleryParallax); }
+const clamp01 = n => Math.max(0, Math.min(1, n));
+const segment = (p, a, b) => clamp01((p - a) / (b - a));
+const smooth = t => t * t * (3 - 2 * t);
+let openingState = (window.WeddingIntro && window.WeddingIntro.state) || 'waiting';
+window.addEventListener('weddingintrostate', e => { openingState = e.detail && e.detail.state ? e.detail.state : openingState; });
+
+/* 인트로는 Supabase보다 먼저 생성된 독립 엔진에 위임한다. */
+function applyOpeningProgress(p) {
+  if (window.WeddingIntro) window.WeddingIntro.apply(p);
+}
+function startTouchOpening() {
+  if (window.WeddingIntro) window.WeddingIntro.start();
+}
+function setupTouchOpening() {
+  if (!window.WeddingIntro) return;
+  window.WeddingIntro.bind();
+  openingState = window.WeddingIntro.state;
+  if (location.hash !== '#admin' && openingState === 'waiting') window.WeddingIntro.apply(0);
+}
+function cancelTouchOpeningForAdmin() {
+  if (!window.WeddingIntro) return;
+  window.WeddingIntro.complete(true);
+  openingState = 'complete';
+}
+
+function observeDockSections(){
+  if(!('IntersectionObserver' in window)) return;
+  const bs=$$('#dock [data-go]'); const byId=new Map(bs.map(b=>[b.dataset.go,b]));
+  const io=new IntersectionObserver(es=>{const a=es.filter(e=>e.isIntersecting).sort((x,y)=>y.intersectionRatio-x.intersectionRatio)[0];if(!a)return;bs.forEach(b=>b.classList.toggle('active',b===byId.get(a.target.id)));},{rootMargin:'-34% 0px -52% 0px',threshold:[0,.2,.55]});
+  bs.forEach(b=>{const s=$('#'+b.dataset.go);if(s)io.observe(s)});
+}
+
 /* ── 전역 이벤트 ──────────────────────────── */
 function bindEvents() {
   $('#grid').onclick = e => { const b = e.target.closest('[data-i]'); if (b) openLb(+b.dataset.i); };
@@ -1139,7 +1462,13 @@ function bindEvents() {
   $('#rsvp-open').onclick = openRsvpForm;
   $('#sh-kakao').onclick = shareKakao;
   $('#sh-link').onclick = shareLink;
-  $('#dock').onclick = e => { const b = e.target.closest('[data-go]'); if (b) $('#' + b.dataset.go).scrollIntoView({ behavior: 'smooth' }); };
+  const goSection = b => { const s = b && $('#' + b.dataset.go); if (s) s.scrollIntoView({behavior:'smooth',block:'start'}); };
+  $('#dock').onclick = e => goSection(e.target.closest('[data-go]'));
+  $('#hero').onclick = e => { const b=e.target.closest('[data-go]'); if(b) goSection(b); };
+  window.addEventListener('scroll', requestGalleryParallax, {passive:true});
+  window.addEventListener('resize', requestGalleryParallax, {passive:true});
+  setupTouchOpening();
+  observeDockSections();
   document.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeSheet(); $('#lb').classList.remove('on'); document.body.style.overflow = ''; }
@@ -1197,7 +1526,8 @@ const PANES = {
     <div class="two">${fText('예식장', 'wedding.hall')}${fText('층 / 홀', 'wedding.floor')}</div>
     ${fText('예식장 전화', 'wedding.tel')}
     <h4>표지 · 맺음</h4>
-    ${fText('사진 위 문구', 'hero.stamp', 'we are getting married')}
+    <div class="two">${fText('신랑 영문 이름', 'hero.groomEn', 'KYUNGTAE')}${fText('신부 영문 이름', 'hero.brideEn', 'MINJU')}</div>
+    <div class="two">${fText('볼륨 표기', 'hero.volume', 'VOL. 01')}${fText('상단 문구', 'hero.stamp', 'WEDDING INVITATION')}</div>
     ${fText('맺음말', 'foot.sig')}`,
 
   words: () => `
@@ -1363,7 +1693,7 @@ function renderAdmin() {
 
   a.innerHTML = `
     <div class="ah">
-      <div class="ttl">청첩장 관리 <span style="color:var(--mist);font-size:11px">v0.6</span>
+      <div class="ttl">청첩장 관리 <span style="color:var(--mist);font-size:11px">Editorial Motion v1.0</span>
         ${dirty ? '<span style="color:var(--point)"> • 저장 안 됨</span>' : ''}</div>
       <div class="acts">
         <button id="prev">미리보기</button>
@@ -1520,7 +1850,14 @@ function download(blob, name) {
 async function route() {
   const admin = location.hash === '#admin';
   document.body.classList.toggle('admin', admin);
-  if (!admin) { document.body.style.overflow = ''; renderAll(); return; }
+  if (admin) cancelTouchOpeningForAdmin();
+  if (!admin) {
+    document.body.style.overflow = '';
+    renderAll();
+    /* #admin에서 돌아온 경우 이미 열린 청첩장 상태를 유지한다. */
+    if (openingState === 'complete') applyOpeningProgress(1);
+    return;
+  }
 
   const s = await DB.session();
   signedIn = !!s;
@@ -1538,6 +1875,8 @@ function fatal(msg) {
 }
 
 (async function boot() {
+  /* TOUCH TO MEET은 DB/CDN 성공 여부와 무관하게 이미 바인딩되어 있다. */
+  setupTouchOpening();
   if (!initSupabase()) return fatal(connError);
   try {
     await loadPublic();
