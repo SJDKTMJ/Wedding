@@ -153,13 +153,23 @@ body.opening-lock {
 
 .opening__name {
   position: absolute;
-  top: 31svh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-family: var(--opening-serif);
   font-size: 16px;
   line-height: 1.25;
   letter-spacing: .18em;
   writing-mode: vertical-rl;
   text-orientation: upright;
+}
+
+.opening__panel--left .opening__name {
+  color: var(--opening-navy);
+}
+
+.opening__panel--right .opening__name {
+  color: var(--opening-sand);
 }
 
 .opening__line {
