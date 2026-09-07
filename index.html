@@ -151,14 +151,6 @@ body.opening-lock {
   background: var(--opening-navy);
 }
 
-.opening__initial {
-  position: absolute;
-  top: calc(env(safe-area-inset-top) + 42px);
-  font-family: var(--opening-serif);
-  font-size: 25px;
-  line-height: 1;
-}
-
 .opening__name {
   position: absolute;
   top: 31svh;
@@ -177,6 +169,10 @@ body.opening-lock {
   height: 48px;
   background: currentColor;
   opacity: .65;
+}
+
+.opening__line--top {
+  top: calc(env(safe-area-inset-top) + 42px);
 }
 
 .opening.is-opening .opening__photo {
@@ -461,13 +457,13 @@ table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:
 <div id="opening" class="opening" aria-hidden="true">
   <img id="opening-img" class="opening__photo" alt="">
   <div class="opening__panel opening__panel--left">
-    <span class="opening__initial">K</span>
+    <span class="opening__line opening__line--top"></span>
     <span class="opening__name">KYUNGTAE</span>
     <span class="opening__line"></span>
   </div>
 
   <div class="opening__panel opening__panel--right">
-    <span class="opening__initial">M</span>
+    <span class="opening__line opening__line--top"></span>
     <span class="opening__name">MINJU</span>
     <span class="opening__line"></span>
   </div>
