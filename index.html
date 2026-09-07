@@ -97,16 +97,31 @@ body.opening-lock {
   pointer-events: auto;
 }
 
+.opening__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.04);
+  transition: transform 4.2s cubic-bezier(.22, .61, .36, 1);
+}
+
 .opening__panel {
   position: absolute;
   top: 0;
+  z-index: 1;
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 1.4s cubic-bezier(.76, 0, .24, 1) .8s;
-  will-change: transform;
+  transition:
+    transform 2.8s cubic-bezier(.65, 0, .35, 1) .9s,
+    opacity 2.8s ease .9s;
+  will-change: transform, opacity;
   backface-visibility: hidden;
 }
 
@@ -150,18 +165,24 @@ body.opening-lock {
   opacity: .65;
 }
 
+.opening.is-opening .opening__photo {
+  transform: scale(1);
+}
+
 .opening.is-opening .opening__panel--left {
   transform: translate3d(-100%, 0, 0);
+  opacity: 0;
 }
 
 .opening.is-opening .opening__panel--right {
   transform: translate3d(100%, 0, 0);
+  opacity: 0;
 }
 
 .opening.is-finished {
   opacity: 0;
   pointer-events: none;
-  transition: opacity .2s ease;
+  transition: opacity .75s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -424,6 +445,7 @@ table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:
 <!-- ══ 청첩장 ══════════════════════════════ -->
 <!-- 첫 진입 오프닝 -->
 <div id="opening" class="opening" aria-hidden="true">
+  <img id="opening-img" class="opening__photo" alt="">
   <div class="opening__panel opening__panel--left">
     <span class="opening__initial">K</span>
     <span class="opening__name">KYEONGTAE</span>
@@ -826,6 +848,7 @@ function humanize(e) {
 /* ═══ 전역 상태 ════════════════════════════════════════════ */
 let D = null;          // 내용
 let PHOTOS = [];       // photos 테이블 원본
+let OPENING = null;    // kind='opening' 중 첫 장
 let HERO = null;       // kind='hero' 중 첫 장
 let GALLERY = [];      // kind='gallery'
 let GB = [];           // 방명록
@@ -836,6 +859,7 @@ async function loadPublic() {
   const [content, photos] = await Promise.all([DB.getContent(), DB.listPhotos()]);
   D = merge(DEFAULTS, content);
   PHOTOS = photos;
+  OPENING = photos.find(p => p.kind === 'opening') || null;
   HERO = photos.find(p => p.kind === 'hero') || null;
   GALLERY = photos.filter(p => p.kind === 'gallery');
   try { GB = D.guestbook.on ? await DB.listGuestbook() : []; } catch { GB = []; }
@@ -856,6 +880,13 @@ function renderMeta() {
   $('#og-title').content = s.title || '';
   $('#og-desc').content = (s.desc || '').replace(/\n/g, ' ');
   $('#og-image').content = HERO ? HERO.url : '';
+}
+
+function renderOpening() {
+  const img = $('#opening-img');
+  if (!img) return;
+  const photo = OPENING || HERO;
+  img.src = photo ? photo.url : PLACEHOLDER('오프닝 사진');
 }
 
 function renderHero() {
@@ -1032,7 +1063,7 @@ function syncDock() {
 }
 
 function renderAll() {
-  applyTheme(); renderMeta(); renderHero(); renderGreeting(); renderCalendar();
+  applyTheme(); renderMeta(); renderOpening(); renderHero(); renderGreeting(); renderCalendar();
   renderGallery(); renderMap(); renderAccounts(); renderRsvpSection();
   renderGuestbook(); renderFoot(); setupBgm(); syncDock();
 }
@@ -1240,8 +1271,8 @@ function setupBgm() {
 /* ── 첫 진입 오프닝 ───────────────────────── */
 let openingPlayed = false;
 
-function waitForHeroImage(timeout = 1500) {
-  const img = $('#hero-img');
+function waitForOpeningImage(timeout = 1500) {
+  const img = $('#opening-img');
 
   if (!img || img.complete) {
     return Promise.resolve();
@@ -1275,7 +1306,7 @@ async function playOpening() {
   document.body.classList.add('opening-lock');
   window.scrollTo(0, 0);
 
-  await waitForHeroImage();
+  await waitForOpeningImage();
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     opening.remove();
@@ -1289,14 +1320,29 @@ async function playOpening() {
     });
   });
 
-  setTimeout(() => {
-    opening.classList.add('is-finished');
-    document.body.classList.remove('opening-lock');
+  const rightPanel = opening.querySelector('.opening__panel--right');
+  let finishing = false;
+
+  const finish = () => {
+    if (finishing) return;
+    finishing = true;
 
     setTimeout(() => {
-      opening.remove();
-    }, 220);
-  }, 2350);
+      opening.classList.add('is-finished');
+      document.body.classList.remove('opening-lock');
+
+      setTimeout(() => {
+        opening.remove();
+      }, 780);
+    }, 450);
+  };
+
+  rightPanel?.addEventListener('transitionend', e => {
+    if (e.propertyName === 'transform') finish();
+  });
+
+  // transitionend가 누락되는 환경을 위한 안전 종료
+  setTimeout(finish, 4200);
 }
 
 /* ── 스크롤 등장 ──────────────────────────── */
@@ -1396,6 +1442,16 @@ const PANES = {
     ${fChk('어머니 故 표기', 'couple.bride.mother.late')}`,
 
   photo: () => `
+    <h4>오프닝 사진</h4>
+    <div class="thumbs" style="max-width:170px">
+      <div class="t"><img src="${esc(OPENING ? OPENING.url : PLACEHOLDER('없음'))}" alt="">${OPENING ? '<button data-opening-del>×</button>' : ''}</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <button class="mini" id="opening-file">파일에서 올리기</button>
+      <button class="mini" id="opening-url">이미지 주소로 넣기</button>
+    </div>
+    <p class="hint">양쪽 패널이 열리며 나타나는 전용 사진입니다. 등록하지 않으면 대표 사진이 대신 표시됩니다.</p>
+
     <h4>대표 사진</h4>
     <div class="thumbs" style="max-width:170px">
       <div class="t"><img src="${esc(HERO ? HERO.url : PLACEHOLDER('없음'))}" alt="">${HERO ? '<button data-hero-del>×</button>' : ''}</div>
@@ -1579,6 +1635,7 @@ function collect() {
 
 async function reloadPhotos() {
   PHOTOS = await DB.listPhotos();
+  OPENING = PHOTOS.find(p => p.kind === 'opening') || null;
   HERO = PHOTOS.find(p => p.kind === 'hero') || null;
   GALLERY = PHOTOS.filter(p => p.kind === 'gallery');
 }
@@ -1588,9 +1645,18 @@ function bindPane() {
     const pick = $('#pick');
     let target = 'gallery';
 
+    $('#opening-file').onclick = () => { target = 'opening'; pick.multiple = false; pick.click(); };
     $('#hero-file').onclick = () => { target = 'hero'; pick.multiple = false; pick.click(); };
     $('#gal-file').onclick = () => { target = 'gallery'; pick.multiple = true; pick.click(); };
 
+    $('#opening-url').onclick = async () => {
+      const u = prompt('이미지 주소를 붙여넣으세요 (https://...)'); if (!u) return;
+      try {
+        if (OPENING) await DB.delPhoto(OPENING);
+        await DB.addPhotoUrl('opening', u.trim(), 0);
+        await reloadPhotos(); renderAll(); renderAdmin(); toast('오프닝 사진을 바꿨습니다');
+      } catch (e) { toast(humanize(e)); }
+    };
     $('#hero-url').onclick = async () => {
       const u = prompt('이미지 주소를 붙여넣으세요 (https://...)'); if (!u) return;
       try {
@@ -1614,7 +1680,11 @@ function bindPane() {
         for (let i = 0; i < files.length; i++) {
           toast(`올리는 중 ${i + 1} / ${files.length}`);
           const blob = await resizeToBlob(files[i]);
-          if (target === 'hero') {
+          if (target === 'opening') {
+            if (OPENING) await DB.delPhoto(OPENING);
+            await DB.addPhoto('opening', blob, 0);
+            await reloadPhotos();
+          } else if (target === 'hero') {
             if (HERO) await DB.delPhoto(HERO);
             await DB.addPhoto('hero', blob, 0);
             await reloadPhotos();
@@ -1624,6 +1694,12 @@ function bindPane() {
         }
         await reloadPhotos(); renderAll(); renderAdmin(); toast('사진을 올렸습니다');
       } catch (e) { toast(humanize(e)); }
+    };
+
+    const od = $('[data-opening-del]');
+    if (od) od.onclick = async () => {
+      try { await DB.delPhoto(OPENING); await reloadPhotos(); renderAll(); renderAdmin(); }
+      catch (e) { toast(humanize(e)); }
     };
 
     const hd = $('[data-hero-del]');
