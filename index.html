@@ -1717,6 +1717,9 @@ function fatal(msg) {
 }
 
 (async function boot() {
+  // 관리자 URL에서는 첫 화면이 그려지기 전에 오프닝을 제거한다.
+  if (location.hash === '#admin') $('#opening')?.remove();
+
   if (!initSupabase()) return fatal(connError);
   try {
     await loadPublic();
