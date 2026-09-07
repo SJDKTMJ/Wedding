@@ -238,7 +238,9 @@ body.opening-lock {
 #hero .frame img{width:100%; height:100%; object-fit:cover}
 #hero .frame::after{
   content:''; position:absolute; inset:0;
-  background:linear-gradient(to bottom, rgba(0,0,0,.18) 0%, transparent 30%, transparent 55%, rgba(0,0,0,.42) 100%);
+  background:
+    linear-gradient(to bottom, transparent 0%, transparent 72%, rgba(244,238,232,.65) 85%, var(--paper) 90%, var(--paper) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.18) 0%, transparent 30%, transparent 55%, rgba(0,0,0,.42) 100%);
 }
 #hero .stamp{
   position:absolute; top:22px; left:0; right:0; text-align:center;
