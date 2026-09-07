@@ -174,11 +174,11 @@ body.opening-lock {
 }
 
 .opening__panel--left .opening__name.is-typing {
-  animation: opening-name-type 1.44s steps(8, end) forwards;
+  animation: opening-name-type 1.28s steps(8, end) forwards;
 }
 
 .opening__panel--right .opening__name.is-typing {
-  animation: opening-name-type .9s steps(5, end) forwards;
+  animation: opening-name-type .8s steps(5, end) forwards;
 }
 
 .opening__name.is-typed {
@@ -1390,9 +1390,10 @@ async function typeOpeningNames(opening) {
   const kyungtae = opening.querySelector('.opening__panel--left .opening__name');
   const minju = opening.querySelector('.opening__panel--right .opening__name');
 
-  await typeOpeningName(kyungtae, 1650);
+  await typeOpeningName(kyungtae, 1500);
   await delay(200);
-  await typeOpeningName(minju, 1100);
+  await typeOpeningName(minju, 1000);
+  await delay(200);
 }
 
 async function playOpening() {
