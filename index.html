@@ -134,7 +134,7 @@ body.opening-lock {
   align-items: center;
   transition:
     transform 2.8s cubic-bezier(.65, 0, .35, 1) .9s,
-    opacity 1.9s ease 1.8s;
+    opacity 2.2s ease 1.5s;
   will-change: transform, opacity;
   backface-visibility: hidden;
 }
@@ -194,12 +194,8 @@ body.opening-lock {
 }
 
 .opening.is-finished {
-  background: transparent;
-  pointer-events: none;
-}
-
-.opening.is-finished .opening__photo {
   opacity: 0;
+  pointer-events: none;
   transition: opacity 1.2s ease;
 }
 
