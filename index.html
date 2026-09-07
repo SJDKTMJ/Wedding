@@ -133,8 +133,8 @@ body.opening-lock {
   flex-direction: column;
   align-items: center;
   transition:
-    transform 2.8s cubic-bezier(.65, 0, .35, 1) .9s,
-    opacity 2.2s ease 1.5s;
+    transform 2.8s cubic-bezier(.65, 0, .35, 1),
+    opacity 1.3s ease 1.5s;
   will-change: transform, opacity;
   backface-visibility: hidden;
 }
@@ -162,6 +162,7 @@ body.opening-lock {
   letter-spacing: .18em;
   writing-mode: vertical-rl;
   text-orientation: upright;
+  clip-path: inset(0 0 100% 0);
 }
 
 .opening__panel--left .opening__name {
@@ -170,6 +171,23 @@ body.opening-lock {
 
 .opening__panel--right .opening__name {
   color: var(--opening-sand);
+}
+
+.opening__panel--left .opening__name.is-typing {
+  animation: opening-name-type .96s steps(8, end) forwards;
+}
+
+.opening__panel--right .opening__name.is-typing {
+  animation: opening-name-type .6s steps(5, end) forwards;
+}
+
+.opening__name.is-typed {
+  clip-path: inset(0);
+}
+
+@keyframes opening-name-type {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0); }
 }
 
 .opening__line {
@@ -1347,6 +1365,34 @@ function waitForOpeningImages() {
   ]);
 }
 
+function typeOpeningName(name, fallbackMs) {
+  if (!name) return Promise.resolve();
+
+  return new Promise(resolve => {
+    let finished = false;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      name.classList.remove('is-typing');
+      name.classList.add('is-typed');
+      resolve();
+    };
+
+    name.addEventListener('animationend', done, { once: true });
+    name.classList.add('is-typing');
+    setTimeout(done, fallbackMs);
+  });
+}
+
+async function typeOpeningNames(opening) {
+  const kyungtae = opening.querySelector('.opening__panel--left .opening__name');
+  const minju = opening.querySelector('.opening__panel--right .opening__name');
+
+  await typeOpeningName(kyungtae, 1100);
+  await delay(120);
+  await typeOpeningName(minju, 750);
+}
+
 async function playOpening() {
   const opening = $('#opening');
 
@@ -1370,11 +1416,11 @@ async function playOpening() {
   }
 
   opening.classList.add('is-ready');
+  await typeOpeningNames(opening);
 
+  // 두 이름의 타이핑이 끝나는 즉시 패널을 연다.
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      opening.classList.add('is-opening');
-    });
+    opening.classList.add('is-opening');
   });
 
   const rightPanel = opening.querySelector('.opening__panel--right');
