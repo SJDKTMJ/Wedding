@@ -18,12 +18,12 @@
    토큰 — 관리자 화면에서 덮어씁니다
    ───────────────────────────────────────────── */
 :root{
-  --paper:#F7F7F4;
-  --ink:#1B1E23;
-  --accent:#2E4062;   /* 쪽빛 */
-  --point:#9C3B36;    /* 연지 */
-  --mist:#8792A6;
-  --line:#E2E1DB;
+  --paper:#F4EEE8;    /* Paper Ivory */
+  --ink:#2A2929;      /* Soft Charcoal */
+  --accent:#253851;   /* Ink Navy */
+  --point:#9F572F;    /* Aged Copper */
+  --mist:#6E6862;     /* Muted Taupe */
+  --line:#DED5CC;     /* 구분선 · 사진 테두리 */
 
   --serif:'Gowun Batang', serif;
   --sans:'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif;
@@ -35,7 +35,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0; background:#EDEDE9; color:var(--ink);
+  margin:0; background:var(--paper); color:var(--ink);
   font-family:var(--sans); font-size:15px; line-height:1.7;
   -webkit-font-smoothing:antialiased;
 }
@@ -208,7 +208,7 @@ body.opening-lock {
 
 /* ── 표지 ─────────────────────────────────── */
 #hero{position:relative; z-index:2; background:var(--paper)}
-#hero .frame{position:relative; overflow:hidden; aspect-ratio:4/5; background:#DEDCD6}
+#hero .frame{position:relative; overflow:hidden; aspect-ratio:4/5; background:#DEDCD6; border:1px solid var(--line)}
 #hero .frame img{width:100%; height:100%; object-fit:cover}
 #hero .frame::after{
   content:''; position:absolute; inset:0;
@@ -283,7 +283,7 @@ body.opening-lock {
 
 /* ── 갤러리 ───────────────────────────────── */
 .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:4px}
-.grid button{padding:0; border:0; background:#DEDCD6; aspect-ratio:1; overflow:hidden}
+.grid button{padding:0; border:1px solid var(--line); background:#DEDCD6; aspect-ratio:1; overflow:hidden}
 .grid img{width:100%; height:100%; object-fit:cover; transition:transform .5s}
 .grid button:active img{transform:scale(1.05)}
 .more{display:block; margin:18px auto 0; background:none; border:0; font-size:12px; letter-spacing:.16em; color:var(--mist); text-transform:uppercase}
@@ -291,7 +291,7 @@ body.opening-lock {
 /* ── 오시는 길 ─────────────────────────────── */
 .place{text-align:center; margin-bottom:20px}
 .place .hall{font-family:var(--serif); font-size:17px}
-.place .addr{font-size:13.5px; color:#5A5F68; margin-top:7px; line-height:1.6}
+.place .addr{font-size:13.5px; color:var(--ink); margin-top:7px; line-height:1.6}
 #map{height:220px; background:#E6E5DF; border:1px solid var(--line); position:relative}
 #map .ph{position:absolute; inset:0; display:grid; place-items:center; text-align:center; font-size:12px; color:var(--mist); padding:20px; line-height:1.8}
 .navbtns{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:10px}
@@ -301,7 +301,7 @@ body.opening-lock {
 }
 .tps{margin-top:28px; display:grid; gap:20px}
 .tp .k{font-size:12px; letter-spacing:.16em; color:var(--accent); margin-bottom:6px}
-.tp .v{font-size:13.5px; color:#4C525C; white-space:pre-line; line-height:1.8}
+.tp .v{font-size:13.5px; color:var(--ink); white-space:pre-line; line-height:1.8}
 
 /* ── 아코디언(계좌) ─────────────────────────── */
 .acc{border-top:1px solid var(--line)}
@@ -348,12 +348,12 @@ body.opening-lock {
 .gb .head{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
 .gb .nm{font-family:var(--serif); font-size:14.5px}
 .gb .dt{font-size:11px; color:var(--mist); font-variant-numeric:tabular-nums}
-.gb .msg{font-size:14px; margin-top:7px; white-space:pre-line; line-height:1.8; color:#3E434B}
+.gb .msg{font-size:14px; margin-top:7px; white-space:pre-line; line-height:1.8; color:var(--ink)}
 .gb .del{background:none; border:0; font-size:11px; color:var(--mist); padding:4px 0; margin-top:4px}
 .empty{text-align:center; color:var(--mist); font-size:13px; padding:34px 0}
 .pager{display:flex; justify-content:center; gap:14px; margin-top:18px; font-size:12px; color:var(--mist)}
 .pager button{background:none; border:0; color:var(--accent)}
-.pager button:disabled{color:#CDCBC4}
+.pager button:disabled{color:var(--mist); opacity:.45}
 
 /* ── 공유 / 하단 ───────────────────────────── */
 .share{display:grid; grid-template-columns:1fr 1fr; gap:8px; max-width:300px; margin:0 auto}
@@ -614,10 +614,20 @@ const SUPABASE_KEY = 'sb_publishable_JNtsllUpeZUfLDiibu277A_qOa4kRYv';
 const BUCKET = 'wedding';
 
 /* ═══ 2. 기본값 ════════════════════════════════════════════ */
+const DESIGN_PALETTE_VERSION = 2;
+const DESIGN_PALETTE = Object.freeze({
+  paper: '#F4EEE8',
+  ink: '#2A2929',
+  accent: '#253851',
+  point: '#9F572F',
+  mist: '#6E6862',
+  line: '#DED5CC'
+});
+
 const DEFAULTS = {
   theme: {
-    paper: '#F7F7F4', ink: '#1B1E23', accent: '#2E4062',
-    point: '#9C3B36', mist: '#8792A6', line: '#E2E1DB',
+    ...DESIGN_PALETTE,
+    paletteVersion: DESIGN_PALETTE_VERSION,
     serif: "'Gowun Batang', serif"
   },
   hero: { stamp: 'we are getting married' },
@@ -871,7 +881,16 @@ let countdownTimer = null;
 
 async function loadPublic() {
   const [content, photos] = await Promise.all([DB.getContent(), DB.listPhotos()]);
+  const savedPaletteVersion = Number(content?.theme?.paletteVersion || 0);
   D = merge(DEFAULTS, content);
+
+  // 기존 Supabase 테마를 새 팔레트로 한 번만 마이그레이션한다.
+  if (savedPaletteVersion < DESIGN_PALETTE_VERSION) {
+    Object.assign(D.theme, DESIGN_PALETTE, {
+      paletteVersion: DESIGN_PALETTE_VERSION
+    });
+  }
+
   PHOTOS = photos;
   OPENING = photos.find(p => p.kind === 'opening') || null;
   HERO = photos.find(p => p.kind === 'hero') || null;
