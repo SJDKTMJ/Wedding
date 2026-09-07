@@ -75,6 +75,7 @@ a{color:inherit}
   --opening-sand: #D0C1AE;
   --opening-navy: #253851;
   --opening-ivory: #F4EEE8;
+  --opening-serif: Georgia, "Times New Roman", serif;
 }
 
 body.opening-lock {
@@ -85,8 +86,9 @@ body.opening-lock {
 .opening {
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 50%;
+  height: 100vh;
+  height: 100svh;
   z-index: 100;
   width: 100%;
   max-width: var(--w);
@@ -151,16 +153,16 @@ body.opening-lock {
 
 .opening__initial {
   position: absolute;
-  top: calc(8vh + env(safe-area-inset-top));
-  font-family: var(--serif);
+  top: calc(env(safe-area-inset-top) + 42px);
+  font-family: var(--opening-serif);
   font-size: 25px;
   line-height: 1;
 }
 
 .opening__name {
   position: absolute;
-  top: 31%;
-  font-family: var(--serif);
+  top: 31svh;
+  font-family: var(--opening-serif);
   font-size: 16px;
   line-height: 1.25;
   letter-spacing: .18em;
@@ -170,7 +172,7 @@ body.opening-lock {
 
 .opening__line {
   position: absolute;
-  top: 68%;
+  top: 68svh;
   width: 1px;
   height: 48px;
   background: currentColor;
