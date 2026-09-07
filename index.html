@@ -95,6 +95,9 @@ body.opening-lock {
   background: var(--opening-ivory);
   opacity: 1;
   pointer-events: auto;
+  isolation: isolate;
+  contain: paint;
+  will-change: opacity;
 }
 
 .opening__photo {
@@ -105,8 +108,17 @@ body.opening-lock {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  opacity: 0;
   transform: scale(1.04);
-  transition: transform 4.2s cubic-bezier(.22, .61, .36, 1);
+  transition:
+    opacity .25s ease,
+    transform 4.2s cubic-bezier(.22, .61, .36, 1);
+  backface-visibility: hidden;
+  will-change: opacity, transform;
+}
+
+.opening.is-ready .opening__photo {
+  opacity: 1;
 }
 
 .opening__panel {
@@ -182,7 +194,7 @@ body.opening-lock {
 .opening.is-finished {
   opacity: 0;
   pointer-events: none;
-  transition: opacity .75s ease;
+  transition: opacity 1.2s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1271,25 +1283,38 @@ function setupBgm() {
 /* ── 첫 진입 오프닝 ───────────────────────── */
 let openingPlayed = false;
 
-function waitForOpeningImage(timeout = 1500) {
-  const img = $('#opening-img');
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-  if (!img || img.complete) {
-    return Promise.resolve();
+async function waitForImageDecode(img, timeout = 2500) {
+  if (!img || !img.src) return;
+
+  if (!img.complete) {
+    await Promise.race([
+      new Promise(resolve => {
+        const finish = () => resolve();
+        img.addEventListener('load', finish, { once: true });
+        img.addEventListener('error', finish, { once: true });
+      }),
+      delay(timeout)
+    ]);
   }
 
-  return new Promise(resolve => {
-    let settled = false;
-    const finish = () => {
-      if (settled) return;
-      settled = true;
-      resolve();
-    };
+  if (typeof img.decode === 'function') {
+    try {
+      await Promise.race([img.decode(), delay(timeout)]);
+    } catch {
+      // 깨진 이미지여도 오프닝 전체가 멈추지 않도록 계속 진행한다.
+    }
+  }
+}
 
-    img.addEventListener('load', finish, { once: true });
-    img.addEventListener('error', finish, { once: true });
-    setTimeout(finish, timeout);
-  });
+function waitForOpeningImages() {
+  return Promise.all([
+    waitForImageDecode($('#opening-img')),
+    waitForImageDecode($('#hero-img'))
+  ]);
 }
 
 async function playOpening() {
@@ -1306,13 +1331,15 @@ async function playOpening() {
   document.body.classList.add('opening-lock');
   window.scrollTo(0, 0);
 
-  await waitForOpeningImage();
+  await waitForOpeningImages();
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     opening.remove();
     document.body.classList.remove('opening-lock');
     return;
   }
+
+  opening.classList.add('is-ready');
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -1333,7 +1360,7 @@ async function playOpening() {
 
       setTimeout(() => {
         opening.remove();
-      }, 780);
+      }, 1250);
     }, 450);
   };
 
@@ -1802,11 +1829,10 @@ function fatal(msg) {
   } catch (e) {
     return fatal(humanize(e) + '\n\nSupabase 프로젝트가 일시정지 상태일 수 있습니다.');
   }
-  renderAll();
-  bindEvents();
-  observeRise();
   window.addEventListener('hashchange', route);
   await route();
+  bindEvents();
+  observeRise();
   playOpening();
   window.addEventListener('beforeunload', e => {
     if (dirty && location.hash === '#admin') { e.preventDefault(); e.returnValue = ''; }
