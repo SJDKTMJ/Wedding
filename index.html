@@ -306,8 +306,8 @@ body.opening-lock {
 .cal td.on .day{background:var(--point); color:#fff}
 .dday{margin-top:24px; font-size:13.5px; letter-spacing:.02em; text-align:center}
 .dday b{font-weight:600; color:var(--point)}
-.count{display:flex; justify-content:center; gap:0; margin:18px 0 34px}
-.count > div{padding:0 14px; border-right:1px solid var(--line)}
+.count{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; max-width:320px; margin:18px auto 34px}
+.count > div{min-width:0; padding:0 10px; border-right:1px solid var(--line); text-align:center}
 .count > div:last-child{border-right:0}
 .count .num{font-size:19px; letter-spacing:.02em; font-variant-numeric:tabular-nums}
 .count .lab{font-size:9.5px; letter-spacing:.2em; color:var(--mist); text-transform:uppercase}
