@@ -643,6 +643,7 @@ table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:
 const SUPABASE_URL = 'https://tnvaqllscuzxltquabgg.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_JNtsllUpeZUfLDiibu277A_qOa4kRYv';
 const BUCKET = 'wedding';
+const KAKAO_SHARE_JS_KEY = '61d5c851c83d31b40f170b61117bdfe1';
 
 /* ═══ 2. 기본값 ════════════════════════════════════════════ */
 const DESIGN_PALETTE_VERSION = 2;
@@ -705,7 +706,7 @@ const DEFAULTS = {
   share: {
     title: '민준 ♥ 서연 결혼합니다',
     desc: '2026년 10월 17일 토요일 낮 12시 30분\n더채플앳청담 5층 채플홀',
-    kakaoJsKey: ''
+    kakaoJsKey: KAKAO_SHARE_JS_KEY
   },
   foot: { sig: '민준 ♥ 서연', cr: '' }
 };
@@ -1279,20 +1280,32 @@ function shareLink() {
   copy(url, '링크를 복사했습니다');
 }
 function shareKakao() {
-  const key = (D.share.kakaoJsKey || '').trim();
+  const key = (D.share.kakaoJsKey || KAKAO_SHARE_JS_KEY).trim();
   const url = location.href.split('#')[0];
+  const locationUrl = `${url}#s-map`;
+  const imageUrl = HERO ? HERO.url : (OPENING ? OPENING.url : '');
   if (!key) { copy(url, '카카오 키가 없어 링크를 복사했습니다'); return; }
+  if (!imageUrl) { copy(url, '공유 이미지가 없어 링크를 복사했습니다'); return; }
   const go = () => {
-    if (!Kakao.isInitialized()) Kakao.init(key);
-    Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: D.share.title, description: D.share.desc,
-        imageUrl: HERO ? HERO.url : '',
-        link: { mobileWebUrl: url, webUrl: url }
-      },
-      buttons: [{ title: '청첩장 보기', link: { mobileWebUrl: url, webUrl: url } }]
-    });
+    try {
+      if (!Kakao.isInitialized()) Kakao.init(key);
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: D.share.title,
+          description: D.share.desc,
+          imageUrl,
+          link: { mobileWebUrl: url, webUrl: url }
+        },
+        buttons: [
+          { title: '청첩장 보기', link: { mobileWebUrl: url, webUrl: url } },
+          { title: '위치 안내', link: { mobileWebUrl: locationUrl, webUrl: locationUrl } }
+        ]
+      });
+    } catch (e) {
+      console.error(e);
+      toast('카카오톡 공유 설정을 확인해 주세요');
+    }
   };
   if (window.Kakao) return go();
   const s = el('script');
