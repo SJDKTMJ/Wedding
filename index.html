@@ -14,9 +14,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  /* ─────────────────────────────────────────────
-   토큰 — 관리자 화면에서 덮어씁니다
-   ───────────────────────────────────────────── */
 :root{
   --paper:#F4EEE8;
   --ink:#2A2929;
@@ -24,297 +21,205 @@
   --point:#9F572F;
   --mist:#6E6862;
   --line:#DED5CC;
-
   --serif:'Gowun Batang', serif;
   --sans:'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif;
-
   --w:430px;
   --pad:26px;
   --thread:1px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font-family:var(--sans); font-size:15px; line-height:1.7;
-  -webkit-font-smoothing:antialiased;
-}
-img{display:block; max-width:100%}
-[hidden]{display:none !important}
-button{font:inherit; color:inherit; cursor:pointer}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;cursor:pointer}
 a{color:inherit}
-
-#paper{
-  max-width:var(--w); margin:0 auto; background:var(--paper);
-  position:relative; overflow:hidden;
-  box-shadow:0 0 40px rgba(0,0,0,.06);
-}
-
-.sec{position:relative; z-index:1; padding:64px var(--pad)}
-.sec--flush{padding-left:0; padding-right:0}
-
-.mark{
-  display:block; width:7px; height:7px; margin:0 auto 30px;
-  background:var(--paper); border:1px solid var(--accent);
-  transform:rotate(45deg);
-}
-.eyebrow{
-  display:block; text-align:center; font-size:10px; letter-spacing:.34em;
-  text-transform:uppercase; color:var(--mist); margin-bottom:10px;
-}
-.sec-title{
-  font-family:var(--serif); font-size:20px; font-weight:400;
-  text-align:center; letter-spacing:.06em; margin:0 0 34px;
-}
-
-:root {
-  --opening-sand: #D0C1AE;
-  --opening-navy: #253851;
-  --opening-ivory: #F4EEE8;
-  --opening-serif: Georgia, "Times New Roman", serif;
-}
-
-body.opening-lock {
-  overflow: hidden;
-  touch-action: none;
-}
-
-.opening {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  height: 100vh;
-  height: 100svh;
-  z-index: 100;
-  width: 100%;
-  max-width: var(--w);
-  overflow: hidden;
-  transform: translateX(-50%);
-  background: var(--opening-ivory);
-  opacity: 1;
-  pointer-events: auto;
-  isolation: isolate;
-  contain: paint;
-  will-change: opacity;
-}
-
-.opening__photo {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0;
-  transform: scale(1.04);
-  transition:
-    opacity .25s ease,
-    transform 4.2s cubic-bezier(.22, .61, .36, 1);
-  backface-visibility: hidden;
-  will-change: opacity, transform;
-}
-.opening.is-ready .opening__photo { opacity:1; }
-.opening__panel {
-  position:absolute; top:0; z-index:1; width:50%; height:100%;
-  display:flex; flex-direction:column; align-items:center;
-  transition:transform 2.8s cubic-bezier(.65,0,.35,1), opacity 1.3s ease 1.5s;
-  will-change:transform,opacity; backface-visibility:hidden;
-}
-.opening__panel--left { left:0; color:var(--opening-navy); background:var(--opening-sand); }
-.opening__panel--right { right:0; color:var(--opening-ivory); background:var(--opening-navy); }
-.opening__name {
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-family:var(--opening-serif); font-size:18px; line-height:1.25; letter-spacing:.18em;
-  writing-mode:vertical-rl; text-orientation:upright; clip-path:inset(0 0 100% 0);
-}
-.opening__panel--left .opening__name { color:var(--opening-navy); }
-.opening__panel--right .opening__name { color:var(--opening-sand); }
-.opening__panel--left .opening__name.is-typing { animation:opening-name-type 1.28s steps(8,end) forwards; }
-.opening__panel--right .opening__name.is-typing { animation:opening-name-type .8s steps(5,end) forwards; }
-.opening__name.is-typed { clip-path:inset(0); }
-@keyframes opening-name-type { from{clip-path:inset(0 0 100% 0)} to{clip-path:inset(0)} }
-.opening__line {
-  position:absolute; top:auto; bottom:calc(10svh + env(safe-area-inset-bottom));
-  width:1px; height:48px; background:currentColor; opacity:.65;
-}
-.opening__line--top { top:calc(10svh + env(safe-area-inset-top)); bottom:auto; }
-.opening.is-opening .opening__photo { transform:scale(1); }
-.opening.is-opening .opening__panel--left { transform:translate3d(-100%,0,0); opacity:0; }
-.opening.is-opening .opening__panel--right { transform:translate3d(100%,0,0); opacity:0; }
-.opening.is-finished { opacity:0; pointer-events:none; transition:opacity 1.2s ease; }
-@media (prefers-reduced-motion:reduce){ .opening__panel{transition-duration:.01ms;transition-delay:0s} }
-
-#hero{position:relative; z-index:2; background:var(--paper)}
-#hero .frame{position:relative; overflow:hidden; aspect-ratio:3/4; background:#DEDCD6}
-#hero .frame img{width:100%; height:100%; object-fit:cover}
-#hero .frame::after{
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(to bottom,transparent 0%,transparent 82%,rgba(244,238,232,.65) 95%,var(--paper) 100%),
-             linear-gradient(to bottom,rgba(0,0,0,.18) 0%,transparent 30%,transparent 55%,rgba(0,0,0,.42) 100%);
-}
-#hero .stamp{position:absolute; top:22px; left:0; right:0; text-align:center; color:#fff; font-size:10px; letter-spacing:.4em; text-transform:uppercase; opacity:.85; z-index:2}
-.names{position:absolute; left:0; right:0; bottom:24px; z-index:3; display:flex; justify-content:center; align-items:flex-start}
-.names .rule{width:1px; background:rgba(255,255,255,.55); margin:5px 24px 0; align-self:stretch}
-.names .n{writing-mode:vertical-rl; text-orientation:upright; font-family:var(--serif); font-size:30px; line-height:1.24; letter-spacing:.14em; color:#fff; text-shadow:0 1px 16px rgba(0,0,0,.5)}
-.when{text-align:center; padding:36px var(--pad) 10px; position:relative; z-index:3}
-.when .d{font-size:15px; letter-spacing:.3em; font-weight:500}
-.when .t{font-size:12px; letter-spacing:.2em; color:var(--mist); margin-top:7px}
-.when .p{font-family:var(--serif); font-size:15px; margin-top:14px; letter-spacing:.04em}
-
-.greet{font-family:var(--serif); text-align:center; line-height:2.25; font-size:15.5px; white-space:pre-line}
-.greet-poem{font-family:var(--serif); text-align:center; color:var(--accent); font-size:14px; line-height:2.1; white-space:pre-line; margin-bottom:30px}
-.parents{display:grid; gap:16px; max-width:320px; margin:0 auto}
-.parents .row{display:flex; flex-direction:column; align-items:center; gap:10px; font-size:14.5px; text-align:center}
-.parents .who{width:100%; font-family:var(--serif); letter-spacing:.02em; text-align:center}
+#paper{max-width:var(--w);margin:0 auto;background:var(--paper);position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.06)}
+.sec{position:relative;z-index:1;padding:64px var(--pad)}
+.sec--flush{padding-left:0;padding-right:0}
+.mark{display:block;width:7px;height:7px;margin:0 auto 30px;background:var(--paper);border:1px solid var(--accent);transform:rotate(45deg)}
+.eyebrow{display:block;text-align:center;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--mist);margin-bottom:10px}
+.sec-title{font-family:var(--serif);font-size:20px;font-weight:400;text-align:center;letter-spacing:.06em;margin:0 0 34px}
+:root{--opening-sand:#D0C1AE;--opening-navy:#253851;--opening-ivory:#F4EEE8;--opening-serif:Georgia,"Times New Roman",serif}
+body.opening-lock{overflow:hidden;touch-action:none}
+.opening{position:fixed;top:0;left:50%;height:100vh;height:100svh;z-index:100;width:100%;max-width:var(--w);overflow:hidden;transform:translateX(-50%);background:var(--opening-ivory);opacity:1;pointer-events:auto;isolation:isolate;contain:paint;will-change:opacity}
+.opening__photo{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transform:scale(1.04);transition:opacity .25s ease,transform 4.2s cubic-bezier(.22,.61,.36,1);backface-visibility:hidden;will-change:opacity,transform}
+.opening.is-ready .opening__photo{opacity:1}
+.opening__panel{position:absolute;top:0;z-index:1;width:50%;height:100%;display:flex;flex-direction:column;align-items:center;transition:transform 2.8s cubic-bezier(.65,0,.35,1),opacity 1.3s ease 1.5s;will-change:transform,opacity;backface-visibility:hidden}
+.opening__panel--left{left:0;color:var(--opening-navy);background:var(--opening-sand)}
+.opening__panel--right{right:0;color:var(--opening-ivory);background:var(--opening-navy)}
+.opening__name{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--opening-serif);font-size:18px;line-height:1.25;letter-spacing:.18em;writing-mode:vertical-rl;text-orientation:upright;clip-path:inset(0 0 100% 0)}
+.opening__panel--left .opening__name{color:var(--opening-navy)}
+.opening__panel--right .opening__name{color:var(--opening-sand)}
+.opening__panel--left .opening__name.is-typing{animation:opening-name-type 1.28s steps(8,end) forwards}
+.opening__panel--right .opening__name.is-typing{animation:opening-name-type .8s steps(5,end) forwards}
+.opening__name.is-typed{clip-path:inset(0)}
+@keyframes opening-name-type{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+.opening__line{position:absolute;top:auto;bottom:calc(10svh + env(safe-area-inset-bottom));width:1px;height:48px;background:currentColor;opacity:.65}
+.opening__line--top{top:calc(10svh + env(safe-area-inset-top));bottom:auto}
+.opening.is-opening .opening__photo{transform:scale(1)}
+.opening.is-opening .opening__panel--left{transform:translate3d(-100%,0,0);opacity:0}
+.opening.is-opening .opening__panel--right{transform:translate3d(100%,0,0);opacity:0}
+.opening.is-finished{opacity:0;pointer-events:none;transition:opacity 1.2s ease}
+@media(prefers-reduced-motion:reduce){.opening__panel{transition-duration:.01ms;transition-delay:0s}}
+#hero{position:relative;z-index:2;background:var(--paper)}
+#hero .frame{position:relative;overflow:hidden;aspect-ratio:3/4;background:#DEDCD6}
+#hero .frame img{width:100%;height:100%;object-fit:cover}
+#hero .frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 0%,transparent 82%,rgba(244,238,232,.65) 95%,var(--paper) 100%),linear-gradient(to bottom,rgba(0,0,0,.18) 0%,transparent 30%,transparent 55%,rgba(0,0,0,.42) 100%)}
+#hero .stamp{position:absolute;top:22px;left:0;right:0;text-align:center;color:#fff;font-size:10px;letter-spacing:.4em;text-transform:uppercase;opacity:.85;z-index:2}
+.names{position:absolute;left:0;right:0;bottom:24px;z-index:3;display:flex;justify-content:center;align-items:flex-start}
+.names .rule{width:1px;background:rgba(255,255,255,.55);margin:5px 24px 0;align-self:stretch}
+.names .n{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--serif);font-size:30px;line-height:1.24;letter-spacing:.14em;color:#fff;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.when{text-align:center;padding:36px var(--pad) 10px;position:relative;z-index:3}
+.when .d{font-size:15px;letter-spacing:.3em;font-weight:500}
+.when .t{font-size:12px;letter-spacing:.2em;color:var(--mist);margin-top:7px}
+.when .p{font-family:var(--serif);font-size:15px;margin-top:14px;letter-spacing:.04em}
+.greet{font-family:var(--serif);text-align:center;line-height:2.25;font-size:15.5px;white-space:pre-line}
+.greet-poem{font-family:var(--serif);text-align:center;color:var(--accent);font-size:14px;line-height:2.1;white-space:pre-line;margin-bottom:30px}
+.parents{display:grid;gap:16px;max-width:320px;margin:0 auto}
+.parents .row{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:14.5px;text-align:center}
+.parents .who{width:100%;font-family:var(--serif);letter-spacing:.02em;text-align:center}
 .parents .who b{font-weight:400}
-.parents .who .sm{font-size:12px; color:var(--mist); margin-right:6px}
-.callrow{display:flex; justify-content:center; gap:6px}
-.icobtn{width:34px; height:34px; border:1px solid var(--line); background:#fff; border-radius:50%; display:grid; place-items:center; color:var(--accent)}
-.icobtn svg{width:15px; height:15px}
-.divider{height:1px; background:var(--line); margin:22px auto; max-width:60px}
-
-.cal{max-width:300px; margin:0 auto; text-align:center}
-.cal .mon{font-family:var(--serif); font-size:17px; letter-spacing:.16em; margin-bottom:16px}
-.cal table{width:100%; border-collapse:collapse}
-.cal th{font-size:10.5px; letter-spacing:.16em; color:var(--mist); font-weight:400; padding-bottom:10px}
+.parents .who .sm{font-size:12px;color:var(--mist);margin-right:6px}
+.callrow{display:flex;justify-content:center;gap:6px}
+.icobtn{width:34px;height:34px;border:1px solid var(--line);background:#fff;border-radius:50%;display:grid;place-items:center;color:var(--accent)}
+.icobtn svg{width:15px;height:15px}
+.divider{height:1px;background:var(--line);margin:22px auto;max-width:60px}
+.cal{max-width:300px;margin:0 auto;text-align:center}
+.cal .mon{font-family:var(--serif);font-size:17px;letter-spacing:.16em;margin-bottom:16px}
+.cal table{width:100%;border-collapse:collapse}
+.cal th{font-size:10.5px;letter-spacing:.16em;color:var(--mist);font-weight:400;padding-bottom:10px}
 .cal th:first-child{color:var(--point)}
-.cal td{font-size:13.5px; padding:6px 0; color:var(--ink)}
+.cal td{font-size:13.5px;padding:6px 0;color:var(--ink)}
 .cal td.sun{color:var(--point)}
 .cal td.off{color:#C9C7C0}
-.cal .day{display:grid; place-items:center; width:30px; height:30px; margin:0 auto; border-radius:50%}
-.cal td.on .day{background:var(--point); color:#fff}
-.dday{margin-top:24px; font-size:13.5px; letter-spacing:.02em; text-align:center}
-.dday b{font-weight:600; color:var(--point)}
-.count{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; max-width:320px; margin:18px auto 34px}
-.count>div{min-width:0; padding:0 10px; border-right:1px solid var(--line); text-align:center}
+.cal .day{display:grid;place-items:center;width:30px;height:30px;margin:0 auto;border-radius:50%}
+.cal td.on .day{background:var(--point);color:#fff}
+.dday{margin-top:24px;font-size:13.5px;letter-spacing:.02em;text-align:center}
+.dday b{font-weight:600;color:var(--point)}
+.count{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;max-width:320px;margin:18px auto 34px}
+.count>div{min-width:0;padding:0 10px;border-right:1px solid var(--line);text-align:center}
 .count>div:last-child{border-right:0}
-.count .num{font-size:19px; letter-spacing:.02em; font-variant-numeric:tabular-nums}
-.count .lab{font-size:9.5px; letter-spacing:.2em; color:var(--mist); text-transform:uppercase}
-
-.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:4px}
-.grid button{padding:0; border:1px solid var(--line); background:#DEDCD6; aspect-ratio:1; overflow:hidden}
-.grid img{width:100%; height:100%; object-fit:cover; transition:transform .5s}
+.count .num{font-size:19px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.count .lab{font-size:9.5px;letter-spacing:.2em;color:var(--mist);text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.grid button{padding:0;border:1px solid var(--line);background:#DEDCD6;aspect-ratio:1;overflow:hidden}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .grid button:active img{transform:scale(1.05)}
-.more{display:block; margin:18px auto 0; background:none; border:0; font-size:12px; letter-spacing:.16em; color:var(--mist); text-transform:uppercase}
-
-.place{text-align:center; margin-bottom:20px}
-.place .hall{font-family:var(--serif); font-size:17px}
-.place .addr{font-size:13.5px; color:var(--ink); margin-top:7px; line-height:1.6}
-#map{height:220px; background:#E6E5DF; border:1px solid var(--line); position:relative}
-#map .ph{position:absolute; inset:0; display:grid; place-items:center; text-align:center; font-size:12px; color:var(--mist); padding:20px; line-height:1.8}
-.navbtns{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:10px}
-.navbtns a,.navbtns button{border:1px solid var(--line); background:#fff; padding:11px 0; text-align:center; font-size:12px; letter-spacing:.04em; text-decoration:none; color:var(--ink)}
-.tps{margin-top:28px; display:grid; gap:20px}
-.tp .k{font-size:12px; letter-spacing:.16em; color:var(--accent); margin-bottom:6px}
-.tp .v{font-size:13.5px; color:var(--ink); white-space:pre-line; line-height:1.8}
-
+.more{display:block;margin:18px auto 0;background:none;border:0;font-size:12px;letter-spacing:.16em;color:var(--mist);text-transform:uppercase}
+.place{text-align:center;margin-bottom:20px}
+.place .hall{font-family:var(--serif);font-size:17px}
+.place .addr{font-size:13.5px;color:var(--ink);margin-top:7px;line-height:1.6}
+#map{height:220px;background:#E6E5DF;border:1px solid var(--line);position:relative}
+#map .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:12px;color:var(--mist);padding:20px;line-height:1.8}
+.navbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.navbtns a,.navbtns button{border:1px solid var(--line);background:#fff;padding:11px 0;text-align:center;font-size:12px;letter-spacing:.04em;text-decoration:none;color:var(--ink)}
+.tps{margin-top:28px;display:grid;gap:20px}
+.tp .k{font-size:12px;letter-spacing:.16em;color:var(--accent);margin-bottom:6px}
+.tp .v{font-size:13.5px;color:var(--ink);white-space:pre-line;line-height:1.8}
 .acc{border-top:1px solid var(--line)}
 .acc:last-of-type{border-bottom:1px solid var(--line)}
-.acc>button{width:100%; background:none; border:0; padding:16px 4px; display:flex; justify-content:space-between; align-items:center; font-size:14px; letter-spacing:.04em}
-.acc>button .chev{transition:transform .25s; color:var(--mist); font-size:11px}
+.acc>button{width:100%;background:none;border:0;padding:16px 4px;display:flex;justify-content:space-between;align-items:center;font-size:14px;letter-spacing:.04em}
+.acc>button .chev{transition:transform .25s;color:var(--mist);font-size:11px}
 .acc.open>button .chev{transform:rotate(180deg)}
-.acc .body{display:none; padding:0 4px 18px}
+.acc .body{display:none;padding:0 4px 18px}
 .acc.open .body{display:block}
-.bank{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 0}
+.bank{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0}
 .bank+.bank{border-top:1px dashed var(--line)}
-.bank .info{font-size:13px; line-height:1.65}
-.bank .info .b{color:var(--mist); font-size:11.5px; letter-spacing:.1em}
-.bank .info .num{font-variant-numeric:tabular-nums; letter-spacing:.02em}
-.copy{border:1px solid var(--line); background:#fff; padding:7px 12px; font-size:11.5px; white-space:nowrap; letter-spacing:.06em}
-.copy:active{background:var(--accent); color:#fff; border-color:var(--accent)}
-
+.bank .info{font-size:13px;line-height:1.65}
+.bank .info .b{color:var(--mist);font-size:11.5px;letter-spacing:.1em}
+.bank .info .num{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.copy{border:1px solid var(--line);background:#fff;padding:7px 12px;font-size:11.5px;white-space:nowrap;letter-spacing:.06em}
+.copy:active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .field{margin-bottom:14px}
-.field label{display:block; font-size:11.5px; letter-spacing:.14em; color:var(--mist); margin-bottom:7px}
-.field input,.field textarea,.field select{width:100%; border:1px solid var(--line); background:#fff; padding:11px 12px; font:inherit; font-size:14px; border-radius:0; color:var(--ink)}
-.field textarea{min-height:96px; resize:vertical; line-height:1.7}
-.field input:focus,.field textarea:focus,.field select:focus{outline:2px solid var(--accent); outline-offset:-1px}
-.seg{display:grid; grid-auto-flow:column; gap:6px}
-.seg button{border:1px solid var(--line); background:#fff; padding:11px 0; font-size:13px}
-.seg button[aria-pressed="true"]{background:var(--accent); color:#fff; border-color:var(--accent)}
-.btn{width:100%; border:1px solid var(--accent); background:var(--accent); color:#fff; padding:14px 0; font-size:14px; letter-spacing:.1em}
-.btn.ghost{background:#fff; color:var(--accent)}
+.field label{display:block;font-size:11.5px;letter-spacing:.14em;color:var(--mist);margin-bottom:7px}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#fff;padding:11px 12px;font:inherit;font-size:14px;border-radius:0;color:var(--ink)}
+.field textarea{min-height:96px;resize:vertical;line-height:1.7}
+.field input:focus,.field textarea:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.seg{display:grid;grid-auto-flow:column;gap:6px}
+.seg button{border:1px solid var(--line);background:#fff;padding:11px 0;font-size:13px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn{width:100%;border:1px solid var(--accent);background:var(--accent);color:#fff;padding:14px 0;font-size:14px;letter-spacing:.1em}
+.btn.ghost{background:#fff;color:var(--accent)}
 .btn:active{opacity:.85}
-
-.gb{display:grid; gap:0; margin-top:8px}
-.gb .item{padding:16px 2px; border-bottom:1px solid var(--line)}
+.gb{display:grid;gap:0;margin-top:8px}
+.gb .item{padding:16px 2px;border-bottom:1px solid var(--line)}
 .gb .item:first-child{border-top:1px solid var(--line)}
-.gb .head{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
-.gb .nm{font-family:var(--serif); font-size:14.5px}
-.gb .dt{font-size:11px; color:var(--mist); font-variant-numeric:tabular-nums}
-.gb .msg{font-size:14px; margin-top:7px; white-space:pre-line; line-height:1.8; color:var(--ink)}
-.gb .del{background:none; border:0; font-size:11px; color:var(--mist); padding:4px 0; margin-top:4px}
-.empty{text-align:center; color:var(--mist); font-size:13px; padding:34px 0}
-.pager{display:flex; justify-content:center; gap:14px; margin-top:18px; font-size:12px; color:var(--mist)}
-.pager button{background:none; border:0; color:var(--accent)}
-.pager button:disabled{color:var(--mist); opacity:.45}
-
-.share{display:grid; grid-template-columns:1fr 1fr; gap:8px; max-width:300px; margin:0 auto}
-.share button{border:1px solid var(--line); background:#fff; padding:13px 0; font-size:12.5px; letter-spacing:.06em}
-.foot{text-align:center; padding:44px var(--pad) calc(90px + env(safe-area-inset-bottom)); position:relative; z-index:1}
-.foot .sig{font-family:var(--serif); font-size:14px; letter-spacing:.1em; color:var(--accent)}
-.foot .cr{font-size:10.5px; color:var(--mist); margin-top:12px; letter-spacing:.06em}
-
-.dock{position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:var(--w); background:rgba(247,247,244,.94); backdrop-filter:blur(10px); border-top:1px solid var(--line); display:grid; grid-template-columns:repeat(3,1fr); z-index:40; padding-bottom:env(safe-area-inset-bottom)}
-.dock button{background:none; border:0; padding:13px 0; font-size:11.5px; letter-spacing:.08em; color:var(--ink)}
+.gb .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.gb .nm{font-family:var(--serif);font-size:14.5px}
+.gb .dt{font-size:11px;color:var(--mist);font-variant-numeric:tabular-nums}
+.gb .msg{font-size:14px;margin-top:7px;white-space:pre-line;line-height:1.8;color:var(--ink)}
+.gb .del{background:none;border:0;font-size:11px;color:var(--mist);padding:4px 0;margin-top:4px}
+.empty{text-align:center;color:var(--mist);font-size:13px;padding:34px 0}
+.pager{display:flex;justify-content:center;gap:14px;margin-top:18px;font-size:12px;color:var(--mist)}
+.pager button{background:none;border:0;color:var(--accent)}
+.pager button:disabled{color:var(--mist);opacity:.45}
+.share{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:300px;margin:0 auto}
+.share button{border:1px solid var(--line);background:#fff;padding:13px 0;font-size:12.5px;letter-spacing:.06em}
+.foot{text-align:center;padding:44px var(--pad) calc(90px + env(safe-area-inset-bottom));position:relative;z-index:1}
+.foot .sig{font-family:var(--serif);font-size:14px;letter-spacing:.1em;color:var(--accent)}
+.foot .cr{font-size:10.5px;color:var(--mist);margin-top:12px;letter-spacing:.06em}
+.dock{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:var(--w);background:rgba(247,247,244,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);z-index:40;padding-bottom:env(safe-area-inset-bottom)}
+.dock button{background:none;border:0;padding:13px 0;font-size:11.5px;letter-spacing:.08em;color:var(--ink)}
 .dock button+button{border-left:1px solid var(--line)}
-#bgm{position:fixed; top:14px; right:calc(50% - var(--w)/2 + 14px); z-index:45; width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,.5); background:rgba(0,0,0,.22); color:#fff; display:grid; place-items:center; font-size:13px}
+#bgm{position:fixed;top:14px;right:calc(50% - var(--w)/2 + 14px);z-index:45;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.22);color:#fff;display:grid;place-items:center;font-size:13px}
 @media(max-width:460px){#bgm{right:14px}}
-
-.ov{position:fixed; inset:0; background:rgba(20,21,24,.94); z-index:60; display:none}
+.ov{position:fixed;inset:0;background:rgba(20,21,24,.94);z-index:60;display:none}
 .ov.on{display:block}
-.ov .x{position:absolute; top:calc(12px + env(safe-area-inset-top)); right:14px; background:none; border:0; color:#fff; font-size:24px; line-height:1; padding:8px; z-index:2}
-.ov .stage{position:absolute; inset:0; display:grid; place-items:center; padding:52px 12px}
-.ov .stage img{max-width:100%; max-height:100%; object-fit:contain}
-.ov .cnt{position:absolute; bottom:calc(20px + env(safe-area-inset-bottom)); left:0; right:0; text-align:center; color:rgba(255,255,255,.7); font-size:12px; letter-spacing:.16em}
-.ov .arw{position:absolute; top:50%; transform:translateY(-50%); background:none; border:0; color:#fff; font-size:26px; padding:18px}
+.ov .x{position:absolute;top:calc(12px + env(safe-area-inset-top));right:14px;background:none;border:0;color:#fff;font-size:24px;line-height:1;padding:8px;z-index:2}
+.ov .stage{position:absolute;inset:0;display:grid;place-items:center;padding:52px 12px}
+.ov .stage img{max-width:100%;max-height:100%;object-fit:contain}
+.ov .cnt{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-size:12px;letter-spacing:.16em}
+.ov .arw{position:absolute;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;font-size:26px;padding:18px}
 .ov .arw.l{left:0}.ov .arw.r{right:0}
-.sheet{position:fixed; inset:0; z-index:70; display:none}
+.sheet{position:fixed;inset:0;z-index:70;display:none}
 .sheet.on{display:block}
-.sheet .bg{position:absolute; inset:0; background:rgba(20,21,24,.5)}
-.sheet .panel{position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:100%; max-width:var(--w); background:var(--paper); padding:26px var(--pad) calc(26px + env(safe-area-inset-bottom)); max-height:88vh; overflow:auto}
-.sheet h3{font-family:var(--serif); font-size:17px; font-weight:400; margin:0 0 4px; text-align:center}
-.sheet .sub{text-align:center; font-size:12.5px; color:var(--mist); margin-bottom:22px; white-space:pre-line}
-.toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(8px); background:var(--ink); color:#fff; padding:11px 18px; font-size:12.5px; letter-spacing:.04em; z-index:90; opacity:0; pointer-events:none; transition:opacity .2s,transform .2s}
-.toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
-.rise{opacity:0; transform:translateY(16px); transition:opacity .9s ease,transform .9s ease}
-.rise.in{opacity:1; transform:none}
+.sheet .bg{position:absolute;inset:0;background:rgba(20,21,24,.5)}
+.sheet .panel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:var(--w);background:var(--paper);padding:26px var(--pad) calc(26px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.sheet h3{font-family:var(--serif);font-size:17px;font-weight:400;margin:0 0 4px;text-align:center}
+.sheet .sub{text-align:center;font-size:12.5px;color:var(--mist);margin-bottom:22px;white-space:pre-line}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;padding:11px 18px;font-size:12.5px;letter-spacing:.04em;z-index:90;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.rise{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease}
+.rise.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}*{animation-duration:.001ms!important}}
-
-#admin{display:none; max-width:760px; margin:0 auto; background:#fff; min-height:100vh}
+#admin{display:none;max-width:760px;margin:0 auto;background:#fff;min-height:100vh}
 body.admin #admin{display:block}
 body.admin #paper,body.admin .dock,body.admin #bgm{display:none}
-.ah{position:sticky; top:0; background:#fff; border-bottom:1px solid var(--line); padding:14px 20px; display:flex; justify-content:space-between; align-items:center; z-index:10}
-.ah .ttl{font-size:14px; letter-spacing:.1em}
-.ah .acts{display:flex; gap:8px}
-.ah button{border:1px solid var(--line); background:#fff; padding:8px 14px; font-size:12.5px}
-.ah button.pri{background:var(--accent); color:#fff; border-color:var(--accent)}
-.tabs{display:flex; gap:0; border-bottom:1px solid var(--line); overflow-x:auto; background:#fff; position:sticky; top:57px; z-index:9}
-.tabs button{border:0; background:none; padding:12px 15px; font-size:12.5px; white-space:nowrap; color:var(--mist); border-bottom:2px solid transparent}
-.tabs button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent)}
-.apane{display:none; padding:22px 20px 80px}
+.ah{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.ah .ttl{font-size:14px;letter-spacing:.1em}
+.ah .acts{display:flex;gap:8px}
+.ah button{border:1px solid var(--line);background:#fff;padding:8px 14px;font-size:12.5px}
+.ah button.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;background:#fff;position:sticky;top:57px;z-index:9}
+.tabs button{border:0;background:none;padding:12px 15px;font-size:12.5px;white-space:nowrap;color:var(--mist);border-bottom:2px solid transparent}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.apane{display:none;padding:22px 20px 80px}
 .apane.on{display:block}
-.apane h4{font-size:12px; letter-spacing:.16em; color:var(--mist); margin:26px 0 12px; text-transform:uppercase}
+.apane h4{font-size:12px;letter-spacing:.16em;color:var(--mist);margin:26px 0 12px;text-transform:uppercase}
 .apane h4:first-child{margin-top:0}
-.two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-.arow{display:flex; gap:8px; align-items:flex-end; margin-bottom:10px}
-.arow .field{flex:1; margin-bottom:0}
-.mini{border:1px solid var(--line); background:#fff; padding:9px 12px; font-size:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.arow{display:flex;gap:8px;align-items:flex-end;margin-bottom:10px}
+.arow .field{flex:1;margin-bottom:0}
+.mini{border:1px solid var(--line);background:#fff;padding:9px 12px;font-size:12px}
 .mini.dan{color:var(--point)}
-.listcard{border:1px solid var(--line); padding:14px; margin-bottom:10px}
-.hint{font-size:12px; color:var(--mist); line-height:1.7; margin:8px 0 0}
-.thumbs{display:grid; grid-template-columns:repeat(auto-fill,minmax(84px,1fr)); gap:8px}
-.thumbs .t{position:relative; aspect-ratio:1; background:#EEE; overflow:hidden; border:1px solid var(--line)}
-.thumbs .t img{width:100%; height:100%; object-fit:cover}
-.thumbs .t button{position:absolute; top:3px; right:3px; width:20px; height:20px; border:0; background:rgba(0,0,0,.6); color:#fff; font-size:12px; line-height:1; border-radius:50%}
-.swatch{display:flex; align-items:center; gap:8px}
-.swatch input[type=color]{width:38px; height:34px; padding:0; border:1px solid var(--line); background:#fff}
-table.adm{width:100%; border-collapse:collapse; font-size:12.5px}
-table.adm th,table.adm td{border-bottom:1px solid var(--line); padding:9px 6px; text-align:left}
-table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:.1em}
-.gate{max-width:320px; margin:22vh auto; padding:0 20px; text-align:center}
-.gate .k{font-family:var(--serif); font-size:18px; margin-bottom:6px}
-.gate .s{font-size:12.5px; color:var(--mist); margin-bottom:22px}
+.listcard{border:1px solid var(--line);padding:14px;margin-bottom:10px}
+.hint{font-size:12px;color:var(--mist);line-height:1.7;margin:8px 0 0}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.thumbs .t{position:relative;aspect-ratio:1;background:#EEE;overflow:hidden;border:1px solid var(--line)}
+.thumbs .t img{width:100%;height:100%;object-fit:cover}
+.thumbs .t button{position:absolute;top:3px;right:3px;width:20px;height:20px;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:12px;line-height:1;border-radius:50%}
+.share-thumb{max-width:320px;aspect-ratio:1200/630;background:#EEE;border:1px solid var(--line);overflow:hidden;position:relative}
+.share-thumb img{width:100%;height:100%;object-fit:cover}
+.share-thumb button{position:absolute;top:5px;right:5px;width:22px;height:22px;border:0;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;line-height:1}
+.swatch{display:flex;align-items:center;gap:8px}
+.swatch input[type=color]{width:38px;height:34px;padding:0;border:1px solid var(--line);background:#fff}
+table.adm{width:100%;border-collapse:collapse;font-size:12.5px}
+table.adm th,table.adm td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left}
+table.adm th{color:var(--mist);font-weight:400;font-size:11px;letter-spacing:.1em}
+.gate{max-width:320px;margin:22vh auto;padding:0 20px;text-align:center}
+.gate .k{font-family:var(--serif);font-size:18px;margin-bottom:6px}
+.gate .s{font-size:12.5px;color:var(--mist);margin-bottom:22px}
 </style>
 </head>
 <body>
@@ -343,34 +248,21 @@ table.adm th{color:var(--mist); font-weight:400; font-size:11px; letter-spacing:
 <div id="admin"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* 모바일 청첩장 · v0.6 */
 const SUPABASE_URL='https://tnvaqllscuzxltquabgg.supabase.co';
 const SUPABASE_KEY='sb_publishable_JNtsllUpeZUfLDiibu277A_qOa4kRYv';
 const BUCKET='wedding';
 const KAKAO_SHARE_JS_KEY='61d5c851c83d31b40f170b61117bdfe1';
-
 const DESIGN_PALETTE_VERSION=2;
 const DESIGN_PALETTE=Object.freeze({paper:'#F4EEE8',ink:'#2A2929',accent:'#253851',point:'#9F572F',mist:'#6E6862',line:'#DED5CC'});
-
-/* 구조 유지를 위한 최소 기본값. 실제 청첩장 콘텐츠는 Supabase에서 로드한다. */
 const DEFAULTS={
   theme:{...DESIGN_PALETTE,paletteVersion:DESIGN_PALETTE_VERSION,serif:"'Gowun Batang', serif"},
   hero:{stamp:'we are getting married'},
-  couple:{
-    groom:{last:'',first:'',phone:'',order:'',father:{name:'',phone:'',late:false},mother:{name:'',phone:'',late:false}},
-    bride:{last:'',first:'',phone:'',order:'',father:{name:'',phone:'',late:false},mother:{name:'',phone:'',late:false}}
-  },
+  couple:{groom:{last:'',first:'',phone:'',order:'',father:{name:'',phone:'',late:false},mother:{name:'',phone:'',late:false}},bride:{last:'',first:'',phone:'',order:'',father:{name:'',phone:'',late:false},mother:{name:'',phone:'',late:false}}},
   wedding:{date:'',time:'',hall:'',floor:'',address:'',tel:'',lat:0,lng:0,kakaoJsKey:''},
-  greeting:{poem:'',title:'',body:''},
-  transport:[],
-  accounts:{groomLabel:'신랑측',brideLabel:'신부측',groom:[],bride:[]},
-  rsvp:{on:true,title:'참석 여부 전달',body:'',askMeal:true,askCount:true,askPhone:false},
-  guestbook:{on:true,perPage:5},
-  bgm:{on:false,url:'',autoplay:false},
-  share:{title:'',desc:'',kakaoJsKey:KAKAO_SHARE_JS_KEY},
-  foot:{sig:'',cr:''}
+  greeting:{poem:'',title:'',body:''},transport:[],accounts:{groomLabel:'신랑측',brideLabel:'신부측',groom:[],bride:[]},
+  rsvp:{on:true,title:'참석 여부 전달',body:'',askMeal:true,askCount:true,askPhone:false},guestbook:{on:true,perPage:5},bgm:{on:false,url:'',autoplay:false},
+  share:{title:'',desc:'',imageUrl:'',imagePath:'',kakaoJsKey:KAKAO_SHARE_JS_KEY},foot:{sig:'',cr:''}
 };
-
 let sb=null,connError='';
 function initSupabase(){if(!window.supabase||!window.supabase.createClient){connError='Supabase 라이브러리를 불러오지 못했습니다. 네트워크를 확인해 주세요.';return false}try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);return true}catch(e){connError='연결 설정에 실패했습니다: '+e.message;return false}}
 const DB={
@@ -380,36 +272,30 @@ const DB={
  async addPhoto(kind,blob,sort){const path=`${kind}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;const up=await sb.storage.from(BUCKET).upload(path,blob,{contentType:'image/jpeg',upsert:false});if(up.error)throw up.error;const{data:pub}=sb.storage.from(BUCKET).getPublicUrl(path);const{data,error}=await sb.from('photos').insert({kind,url:pub.publicUrl,path,sort:sort??0}).select().single();if(error)throw error;return data},
  async addPhotoUrl(kind,url,sort){const{data,error}=await sb.from('photos').insert({kind,url,path:null,sort:sort??0}).select().single();if(error)throw error;return data},
  async delPhoto(row){if(row.path)await sb.storage.from(BUCKET).remove([row.path]);const{error}=await sb.from('photos').delete().eq('id',row.id);if(error)throw error},
+ async uploadShareImage(blob){const path=`share/${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;const up=await sb.storage.from(BUCKET).upload(path,blob,{contentType:'image/jpeg',upsert:false});if(up.error)throw up.error;const{data:pub}=sb.storage.from(BUCKET).getPublicUrl(path);return{url:pub.publicUrl,path}},
+ async removeStoragePath(path){if(!path)return;const{error}=await sb.storage.from(BUCKET).remove([path]);if(error)throw error},
  async listGuestbook(){const{data,error}=await sb.from('guestbook_public').select('*').order('created_at',{ascending:false});if(error)throw error;return data||[]},
  async addGuestbook(name,message,pw){const{error}=await sb.rpc('add_guestbook',{p_name:name,p_message:message,p_pw:pw});if(error)throw error},
  async delGuestbook(id,pw){const{data,error}=await sb.rpc('delete_guestbook',{p_id:id,p_pw:pw});if(error)throw error;return data===true},
  async adminDelGuestbook(id){const{error}=await sb.from('guestbook').delete().eq('id',id);if(error)throw error},
- async addRsvp(row){const{error}=await sb.from('rsvp').insert(row);if(error)throw error},
- async listRsvp(){const{data,error}=await sb.from('rsvp').select('*').order('created_at',{ascending:false});if(error)throw error;return data||[]},
- async delRsvp(id){const{error}=await sb.from('rsvp').delete().eq('id',id);if(error)throw error},
- async session(){const{data}=await sb.auth.getSession();return data?.session||null},
- async signIn(email,password){const{error}=await sb.auth.signInWithPassword({email,password});if(error)throw error},
- async signOut(){await sb.auth.signOut()}
+ async addRsvp(row){const{error}=await sb.from('rsvp').insert(row);if(error)throw error},async listRsvp(){const{data,error}=await sb.from('rsvp').select('*').order('created_at',{ascending:false});if(error)throw error;return data||[]},async delRsvp(id){const{error}=await sb.from('rsvp').delete().eq('id',id);if(error)throw error},
+ async session(){const{data}=await sb.auth.getSession();return data?.session||null},async signIn(email,password){const{error}=await sb.auth.signInWithPassword({email,password});if(error)throw error},async signOut(){await sb.auth.signOut()}
 };
-
-const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const el=(t,cls,html)=>{const n=document.createElement(t);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n};
-const lastEmail=()=>{try{return localStorage.getItem('wedding:email')||''}catch{return''}},rememberEmail=v=>{try{localStorage.setItem('wedding:email',v)}catch{}};
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)],el=(t,cls,html)=>{const n=document.createElement(t);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n};
+const lastEmail=()=>{try{return localStorage.getItem('wedding:email')||''}catch{return''}},rememberEmail=v=>{try{localStorage.setItem('wedding:email',v)}catch{}},esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function merge(base,over){if(Array.isArray(base))return Array.isArray(over)?over:base;if(base&&typeof base==='object'){const out={...base};for(const k in(over||{}))out[k]=merge(base[k]===undefined?over[k]:base[k],over[k]);return out}return over===undefined?base:over}
 const WEEK_KO=['일','월','화','수','목','금','토'];
 function weddingAt(w){const[y,m,d]=(w.date||'2026-01-01').split('-').map(Number);const[hh,mm]=(w.time||'12:00').split(':').map(Number);return new Date(y,m-1,d,hh||0,mm||0)}
-function timeKo(t){const[h,m]=(t||'12:00').split(':').map(Number);const ap=h<12?'오전':'오후',h12=h%12===0?12:h%12;return`${ap} ${h12}시`+(m?` ${m}분`:'')}
+function timeKo(t){const[h,m]=(t||'12:00').split(':').map(Number),ap=h<12?'오전':'오후',h12=h%12===0?12:h%12;return`${ap} ${h12}시`+(m?` ${m}분`:'')}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('on'),2400)}
 async function copy(text,msg='복사했습니다'){try{await navigator.clipboard.writeText(text)}catch{const ta=el('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch{}ta.remove()}toast(msg)}
 function resizeToBlob(file,maxW=1600,q=.82){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const img=new Image();img.onload=()=>{const scale=Math.min(1,maxW/img.width),c=el('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>b?res(b):rej(new Error('변환 실패')),'image/jpeg',q)};img.onerror=()=>rej(new Error('이미지를 읽을 수 없습니다'));img.src=fr.result};fr.onerror=()=>rej(new Error('파일을 읽을 수 없습니다'));fr.readAsDataURL(file)})}
 const PLACEHOLDER=label=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000"><rect width="800" height="1000" fill="#DEDCD6"/><text x="400" y="500" font-family="sans-serif" font-size="26" fill="#9A968D" text-anchor="middle">${label}</text></svg>`);
-function humanize(e){const m=(e&&(e.message||e.error_description||e.msg))||String(e);if(/Invalid login credentials/i.test(m))return'이메일 또는 비밀번호가 맞지 않습니다.';if(/Email not confirmed/i.test(m))return'이메일 인증이 안 된 계정입니다. Supabase에서 Auto Confirm으로 다시 만들어 주세요.';if(/row-level security|violates row-level/i.test(m))return'권한이 없습니다. 관리자로 로그인했는지 확인해 주세요.';if(/Failed to fetch|NetworkError/i.test(m))return'서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.';if(/JWT|apikey|Invalid API key/i.test(m))return'접속 키가 올바르지 않습니다.';return m}
-
+function humanize(e){const m=(e&&(e.message||e.error_description||e.msg))||String(e);if(/Invalid login credentials/i.test(m))return'이메일 또는 비밀번호가 맞지 않습니다.';if(/Email not confirmed/i.test(m))return'이메일 인증이 안 된 계정입니다.';if(/row-level security|violates row-level/i.test(m))return'권한이 없습니다. 관리자로 로그인했는지 확인해 주세요.';if(/Failed to fetch|NetworkError/i.test(m))return'서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.';if(/JWT|apikey|Invalid API key/i.test(m))return'접속 키가 올바르지 않습니다.';return m}
 let D=null,PHOTOS=[],OPENING=null,HERO=null,GALLERY=[],GB=[],RS=[],countdownTimer=null;
 async function loadPublic(){const[content,photos]=await Promise.all([DB.getContent(),DB.listPhotos()]);const savedPaletteVersion=Number(content?.theme?.paletteVersion||0);D=merge(DEFAULTS,content);if(savedPaletteVersion<DESIGN_PALETTE_VERSION)Object.assign(D.theme,DESIGN_PALETTE,{paletteVersion:DESIGN_PALETTE_VERSION});PHOTOS=photos;OPENING=photos.find(p=>p.kind==='opening')||null;HERO=photos.find(p=>p.kind==='hero')||null;GALLERY=photos.filter(p=>p.kind==='gallery');try{GB=D.guestbook.on?await DB.listGuestbook():[]}catch{GB=[]}}
 function applyTheme(){const t=D.theme,r=document.documentElement.style;r.setProperty('--paper',t.paper);r.setProperty('--ink',t.ink);r.setProperty('--accent',t.accent);r.setProperty('--point',t.point);r.setProperty('--mist',t.mist);r.setProperty('--line',t.line);r.setProperty('--serif',t.serif)}
-function renderMeta(){const s=D.share;document.title=s.title||'청첩장';$('#og-title').content=s.title||'';$('#og-desc').content=(s.desc||'').replace(/\n/g,' ');$('#og-image').content=HERO?HERO.url:''}
+function renderMeta(){const s=D.share;document.title=s.title||'청첩장';$('#og-title').content=s.title||'';$('#og-desc').content=(s.desc||'').replace(/\n/g,' ');$('#og-image').content=(s.imageUrl||'').trim()||(HERO?HERO.url:'')}
 function renderOpening(){const img=$('#opening-img');if(!img)return;const photo=OPENING||HERO;img.src=photo?photo.url:PLACEHOLDER('오프닝 사진')}
 function renderHero(){const g=D.couple.groom,b=D.couple.bride,w=D.wedding;$('#hero-img').src=HERO?HERO.url:PLACEHOLDER('대표 사진');$('#hero-stamp').textContent=D.hero.stamp||'';const dt=weddingAt(w);$('#names').innerHTML=`<div class="n groom">${esc(g.last+g.first)}</div><div class="rule"></div><div class="n bride">${esc(b.last+b.first)}</div>`;$('#when-date').textContent=`${dt.getFullYear()} . ${String(dt.getMonth()+1).padStart(2,'0')} . ${String(dt.getDate()).padStart(2,'0')}`;$('#when-time').textContent=`${WEEK_KO[dt.getDay()]}요일 ${timeKo(w.time)}`;$('#when-place').textContent=`${w.hall}${w.floor?' '+w.floor:''}`}
 const callBtn=tel=>`<a class="icobtn" href="tel:${esc(tel)}" aria-label="전화 ${esc(tel)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>`;
@@ -424,7 +310,6 @@ function renderRsvpSection(){$('#s-rsvp').hidden=!D.rsvp.on;$('#rsvp-title').tex
 function renderFoot(){$('#foot-sig').textContent=D.foot.sig||'';$('#foot-cr').textContent=D.foot.cr||''}
 function syncDock(){const vis={'s-gb':D.guestbook.on,'s-map':true,'s-rsvp':D.rsvp.on};$$('#dock [data-go]').forEach(b=>b.hidden=!vis[b.dataset.go]);const n=$$('#dock [data-go]').filter(b=>!b.hidden).length;$('#dock').style.gridTemplateColumns=`repeat(${n||1},1fr)`}
 function renderAll(){applyTheme();renderMeta();renderOpening();renderHero();renderGreeting();renderCalendar();renderGallery();renderMap();renderAccounts();renderRsvpSection();renderGuestbook();renderFoot();setupBgm();syncDock()}
-
 function openSheet(html,onMount){$('#sheet-panel').innerHTML=html;$('#sheet').classList.add('on');document.body.style.overflow='hidden';onMount&&onMount($('#sheet-panel'))}
 function closeSheet(){$('#sheet').classList.remove('on');document.body.style.overflow=''}
 async function busy(btn,label,fn){const old=btn.textContent;btn.disabled=true;btn.textContent=label;try{await fn()}catch(e){toast(humanize(e))}finally{btn.disabled=false;btn.textContent=old}}
@@ -434,7 +319,7 @@ function openGuestbookForm(){openSheet(`<h3>축하의 말</h3><div class="sub">�
 function askDelete(id){openSheet(`<h3>메시지 삭제</h3><div class="sub">작성할 때 입력한 비밀번호를 넣어주세요.</div><div class="field"><input id="dl-pw" type="password" inputmode="numeric" maxlength="8" placeholder="비밀번호"></div><button class="btn" id="dl-go">삭제하기</button><button class="btn ghost" style="margin-top:8px" data-close>취소</button>`,p=>{$('#dl-go',p).onclick=e=>busy(e.currentTarget,'확인 중…',async()=>{const ok=await DB.delGuestbook(id,$('#dl-pw',p).value.trim());if(!ok)return toast('비밀번호가 맞지 않습니다');GB=await DB.listGuestbook();renderGuestbook();closeSheet();toast('삭제했습니다')})})}
 function openRsvpForm(){const r=D.rsvp;openSheet(`<h3>${esc(r.title||'참석 여부 전달')}</h3><div class="sub">${esc(r.body||'')}</div><div class="field"><label>어느 쪽 하객이신가요</label><div class="seg" id="rs-side"><button type="button" data-v="신랑측" aria-pressed="true">신랑측</button><button type="button" data-v="신부측" aria-pressed="false">신부측</button></div></div><div class="field"><label>참석 여부</label><div class="seg" id="rs-att"><button type="button" data-v="참석" aria-pressed="true">참석</button><button type="button" data-v="불참" aria-pressed="false">불참</button></div></div><div class="field"><label>성함</label><input id="rs-name" maxlength="12" placeholder="대표자 이름"></div>${r.askCount?'<div class="field"><label>동행 포함 인원</label><input id="rs-cnt" type="number" min="1" max="30" value="1"></div>':''}${r.askMeal?`<div class="field"><label>식사 여부</label><div class="seg" id="rs-meal"><button type="button" data-v="예정" aria-pressed="true">예정</button><button type="button" data-v="안함" aria-pressed="false">안함</button></div></div>`:''}${r.askPhone?'<div class="field"><label>연락처 (선택)</label><input id="rs-tel" type="tel" placeholder="010-0000-0000"></div>':''}<button class="btn" id="rs-go">전달하기</button><button class="btn ghost" style="margin-top:8px" data-close>닫기</button><p class="hint" style="text-align:center">전달해 주신 정보는 예식 준비에만 쓰고 예식 후 폐기합니다.</p>`,p=>{$$('.seg',p).forEach(seg=>seg.onclick=e=>{const b=e.target.closest('button');if(!b)return;$$('button',seg).forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});const pick=id=>{const s=$('#'+id,p);return s?$('[aria-pressed="true"]',s).dataset.v:''};$('#rs-go',p).onclick=e=>busy(e.currentTarget,'전달 중…',async()=>{const name=$('#rs-name',p).value.trim();if(!name)return toast('성함을 입력해 주세요');await DB.addRsvp({side:pick('rs-side'),name,attending:pick('rs-att')==='참석',headcount:$('#rs-cnt',p)?Math.max(1,Math.min(30,+$('#rs-cnt',p).value||1)):1,meal:pick('rs-meal')||null,phone:$('#rs-tel',p)?($('#rs-tel',p).value.trim()||null):null});closeSheet();toast('참석 여부를 전달했습니다. 감사합니다.')})})}
 function shareLink(){const url=location.href.split('#')[0];if(navigator.share){navigator.share({title:D.share.title,text:D.share.desc,url}).catch(()=>{});return}copy(url,'링크를 복사했습니다')}
-function shareKakao(){const key=(D.share.kakaoJsKey||KAKAO_SHARE_JS_KEY).trim(),url=location.href.split('#')[0],locationUrl=`${url}#s-map`,imageUrl=HERO?HERO.url:(OPENING?OPENING.url:'');if(!key){copy(url,'카카오 키가 없어 링크를 복사했습니다');return}if(!imageUrl){copy(url,'공유 이미지가 없어 링크를 복사했습니다');return}const go=()=>{try{if(!Kakao.isInitialized())Kakao.init(key);Kakao.Share.sendDefault({objectType:'feed',content:{title:D.share.title,description:D.share.desc,imageUrl,link:{mobileWebUrl:url,webUrl:url}},buttons:[{title:'청첩장 보기',link:{mobileWebUrl:url,webUrl:url}},{title:'위치 안내',link:{mobileWebUrl:locationUrl,webUrl:locationUrl}}]})}catch(e){console.error(e);toast('카카오톡 공유 설정을 확인해 주세요')}};if(window.Kakao)return go();const s=el('script');s.src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';s.onload=go;s.onerror=()=>copy(url,'링크를 복사했습니다');document.head.appendChild(s)}
+function shareKakao(){const key=(D.share.kakaoJsKey||KAKAO_SHARE_JS_KEY).trim(),url=location.href.split('#')[0],locationUrl=`${url}#s-map`,imageUrl=(D.share.imageUrl||'').trim()||(HERO?HERO.url:(OPENING?OPENING.url:''));if(!key){copy(url,'카카오 키가 없어 링크를 복사했습니다');return}if(!imageUrl){copy(url,'공유 이미지가 없어 링크를 복사했습니다');return}const go=()=>{try{if(!Kakao.isInitialized())Kakao.init(key);Kakao.Share.sendDefault({objectType:'feed',content:{title:D.share.title,description:D.share.desc,imageUrl,link:{mobileWebUrl:url,webUrl:url}},buttons:[{title:'청첩장 보기',link:{mobileWebUrl:url,webUrl:url}},{title:'위치 안내',link:{mobileWebUrl:locationUrl,webUrl:locationUrl}}]})}catch(e){console.error(e);toast('카카오톡 공유 설정을 확인해 주세요')}};if(window.Kakao)return go();const s=el('script');s.src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';s.onload=go;s.onerror=()=>copy(url,'링크를 복사했습니다');document.head.appendChild(s)}
 let lbI=0;function openLb(i){lbI=i;drawLb();$('#lb').classList.add('on');document.body.style.overflow='hidden'}function drawLb(){$('#lb-img').src=GALLERY[lbI].url;$('#lb-cnt').textContent=`${lbI+1} / ${GALLERY.length}`}function stepLb(d){const n=GALLERY.length;lbI=(lbI+d+n)%n;drawLb()}
 let audio=null;function setupBgm(){const btn=$('#bgm');if(!D.bgm.on||!D.bgm.url){btn.hidden=true;if(audio){audio.pause();audio=null}return}btn.hidden=false;if(!audio){audio=new Audio(D.bgm.url);audio.loop=true;audio.volume=.4}else if(audio.src!==D.bgm.url)audio.src=D.bgm.url;const paint=()=>btn.textContent=audio.paused?'♪':'❙❙';btn.onclick=()=>{audio.paused?audio.play().catch(()=>toast('음악을 재생할 수 없습니다')):audio.pause();setTimeout(paint,80)};if(D.bgm.autoplay){const kick=()=>{audio.play().then(paint).catch(()=>{})};document.addEventListener('touchstart',kick,{once:true});document.addEventListener('click',kick,{once:true})}paint()}
 let openingPlayed=false;const delay=ms=>new Promise(r=>setTimeout(r,ms));async function waitForImageDecode(img,timeout=2500){if(!img||!img.src)return;if(!img.complete)await Promise.race([new Promise(resolve=>{const finish=()=>resolve();img.addEventListener('load',finish,{once:true});img.addEventListener('error',finish,{once:true})}),delay(timeout)]);if(typeof img.decode==='function')try{await Promise.race([img.decode(),delay(timeout)])}catch{}}
@@ -444,24 +329,33 @@ async function typeOpeningNames(opening){const kyungtae=opening.querySelector('.
 async function playOpening(){const opening=$('#opening');if(location.hash==='#admin'){opening?.remove();return}if(!opening||openingPlayed)return;openingPlayed=true;document.body.classList.add('opening-lock');window.scrollTo(0,0);await waitForOpeningImages();if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){opening.remove();document.body.classList.remove('opening-lock');return}opening.classList.add('is-ready');await typeOpeningNames(opening);requestAnimationFrame(()=>opening.classList.add('is-opening'));const rightPanel=opening.querySelector('.opening__panel--right');let finishing=false;const finish=()=>{if(finishing)return;finishing=true;setTimeout(()=>{opening.classList.add('is-finished');document.body.classList.remove('opening-lock');setTimeout(()=>opening.remove(),1250)},450)};rightPanel?.addEventListener('transitionend',e=>{if(e.propertyName==='transform')finish()});setTimeout(finish,4200)}
 function observeRise(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});$$('.rise').forEach(n=>io.observe(n))}
 function bindEvents(){$('#grid').onclick=e=>{const b=e.target.closest('[data-i]');if(b)openLb(+b.dataset.i)};$('#grid-more').onclick=()=>{galleryOpen=!galleryOpen;renderGallery()};$('#lb-x').onclick=()=>{$('#lb').classList.remove('on');document.body.style.overflow=''};$('#lb-p').onclick=()=>stepLb(-1);$('#lb-n').onclick=()=>stepLb(1);$('#gb-open').onclick=openGuestbookForm;$('#rsvp-open').onclick=openRsvpForm;$('#sh-kakao').onclick=shareKakao;$('#sh-link').onclick=shareLink;$('#dock').onclick=e=>{const b=e.target.closest('[data-go]');if(b)$('#'+b.dataset.go).scrollIntoView({behavior:'smooth'})};document.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeSheet()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();$('#lb').classList.remove('on');document.body.style.overflow=''}if($('#lb').classList.contains('on')){if(e.key==='ArrowLeft')stepLb(-1);if(e.key==='ArrowRight')stepLb(1)}});let sx=0;$('#lb').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});$('#lb').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)stepLb(dx>0?-1:1)},{passive:true})}
-
 let signedIn=false,tab='basic',dirty=false;
 const getP=(o,p)=>p.split('.').reduce((a,k)=>(a==null?a:a[k]),o),setP=(o,p,v)=>{const ks=p.split('.'),last=ks.pop(),t=ks.reduce((a,k)=>(a[k]=a[k]??{}),o);t[last]=v};
 const fText=(label,path,ph='')=>`<div class="field"><label>${label}</label><input data-bind="${path}" value="${esc(getP(D,path)??'')}" placeholder="${esc(ph)}"></div>`,fArea=(label,path,ph='')=>`<div class="field"><label>${label}</label><textarea data-bind="${path}" placeholder="${esc(ph)}">${esc(getP(D,path)??'')}</textarea></div>`,fNum=(label,path,step='any')=>`<div class="field"><label>${label}</label><input type="number" step="${step}" data-bind="${path}" data-type="num" value="${esc(getP(D,path)??'')}"></div>`,fDate=(label,path)=>`<div class="field"><label>${label}</label><input type="date" data-bind="${path}" value="${esc(getP(D,path)??'')}"></div>`,fTime=(label,path)=>`<div class="field"><label>${label}</label><input type="time" data-bind="${path}" value="${esc(getP(D,path)??'')}"></div>`,fChk=(label,path)=>`<label style="display:flex;gap:9px;align-items:center;font-size:13.5px;margin:9px 0"><input type="checkbox" data-bind="${path}" data-type="bool" ${getP(D,path)?'checked':''}> ${label}</label>`,fColor=(label,path)=>`<div class="field"><label>${label}</label><div class="swatch"><input type="color" data-bind="${path}" data-mirror="${path}" value="${esc(getP(D,path))}"><input data-bind="${path}" data-mirror="${path}" value="${esc(getP(D,path))}" style="flex:1"></div></div>`;
 const PANES={
  basic:()=>`<h4>신랑</h4><div class="two">${fText('성','couple.groom.last')}${fText('이름','couple.groom.first')}</div><div class="two">${fText('호칭 (아들 / 장남 / 차남)','couple.groom.order')}${fText('연락처','couple.groom.phone','010-0000-0000')}</div><h4>신부</h4><div class="two">${fText('성','couple.bride.last')}${fText('이름','couple.bride.first')}</div><div class="two">${fText('호칭 (딸 / 장녀 / 차녀)','couple.bride.order')}${fText('연락처','couple.bride.phone','010-0000-0000')}</div><h4>예식</h4><div class="two">${fDate('날짜','wedding.date')}${fTime('시간','wedding.time')}</div><div class="two">${fText('예식장','wedding.hall')}${fText('층 / 홀','wedding.floor')}</div>${fText('예식장 전화','wedding.tel')}<h4>표지 · 맺음</h4>${fText('사진 위 문구','hero.stamp','we are getting married')}${fText('맺음말','foot.sig')}`,
  words:()=>`<h4>인사말</h4>${fArea('머리글 (시·문구)','greeting.poem')}${fText('제목','greeting.title')}${fArea('본문','greeting.body')}<h4>신랑 혼주</h4><div class="two">${fText('아버지','couple.groom.father.name')}${fText('연락처','couple.groom.father.phone')}</div>${fChk('아버지 故 표기','couple.groom.father.late')}<div class="two">${fText('어머니','couple.groom.mother.name')}${fText('연락처','couple.groom.mother.phone')}</div>${fChk('어머니 故 표기','couple.groom.mother.late')}<h4>신부 혼주</h4><div class="two">${fText('아버지','couple.bride.father.name')}${fText('연락처','couple.bride.father.phone')}</div>${fChk('아버지 故 표기','couple.bride.father.late')}<div class="two">${fText('어머니','couple.bride.mother.name')}${fText('연락처','couple.bride.mother.phone')}</div>${fChk('어머니 故 표기','couple.bride.mother.late')}`,
- photo:()=>`<h4>오프닝 사진</h4><div class="thumbs" style="max-width:170px"><div class="t"><img src="${esc(OPENING?OPENING.url:PLACEHOLDER('없음'))}" alt="">${OPENING?'<button data-opening-del>×</button>':''}</div></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="opening-file">파일에서 올리기</button><button class="mini" id="opening-url">이미지 주소로 넣기</button></div><p class="hint">양쪽 패널이 열리며 나타나는 전용 사진입니다. 등록하지 않으면 대표 사진이 대신 표시됩니다.</p><h4>대표 사진</h4><div class="thumbs" style="max-width:170px"><div class="t"><img src="${esc(HERO?HERO.url:PLACEHOLDER('없음'))}" alt="">${HERO?'<button data-hero-del>×</button>':''}</div></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="hero-file">파일에서 올리기</button><button class="mini" id="hero-url">이미지 주소로 넣기</button></div><p class="hint">사진은 Supabase 저장소에 올라가고 바로 공개 주소가 붙습니다. 카카오톡 링크 미리보기 썸네일도 이 사진이 쓰여요.</p><h4>갤러리 (${GALLERY.length}장)</h4><div class="thumbs">${GALLERY.map(p=>`<div class="t"><img src="${esc(p.url)}" alt=""><button data-gal-del="${esc(p.id)}">×</button></div>`).join('')||'<p class="hint">사진이 없습니다.</p>'}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="gal-file">파일 여러 장 올리기</button><button class="mini" id="gal-url">이미지 주소 추가</button></div><p class="hint">무료 저장 용량은 1GB입니다. 올릴 때 가로 1600px로 줄이므로 수백 장도 넉넉해요.</p><input type="file" id="pick" accept="image/*" multiple hidden>`,
- place:()=>`<h4>장소</h4>${fText('주소','wedding.address')}<div class="two">${fNum('위도 (lat)','wedding.lat')}${fNum('경도 (lng)','wedding.lng')}</div>${fText('카카오 JavaScript 키','wedding.kakaoJsKey','지도 표시용')}<p class="hint">카카오 개발자센터 → 앱 → 플랫폼 → Web 에 <b>${esc(location.origin)}</b> 을 등록해야 지도가 뜹니다. 좌표는 카카오맵에서 장소 우클릭 → 좌표 복사로 얻습니다.</p><h4>교통 안내</h4><div>${(D.transport||[]).map((t,i)=>`<div class="listcard"><div class="arow"><div class="field"><label>구분</label><input data-bind="transport.${i}.k" value="${esc(t.k)}"></div><button class="mini dan" data-tp-del="${i}">삭제</button></div><div class="field"><label>내용</label><textarea data-bind="transport.${i}.v" style="min-height:64px">${esc(t.v)}</textarea></div></div>`).join('')}</div><button class="mini" id="tp-add">+ 항목 추가</button>`,
+ photo:()=>`<h4>오프닝 사진</h4><div class="thumbs" style="max-width:170px"><div class="t"><img src="${esc(OPENING?OPENING.url:PLACEHOLDER('없음'))}" alt="">${OPENING?'<button data-opening-del>×</button>':''}</div></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="opening-file">파일에서 올리기</button><button class="mini" id="opening-url">이미지 주소로 넣기</button></div><p class="hint">양쪽 패널이 열리며 나타나는 전용 사진입니다. 등록하지 않으면 대표 사진이 대신 표시됩니다.</p><h4>대표 사진</h4><div class="thumbs" style="max-width:170px"><div class="t"><img src="${esc(HERO?HERO.url:PLACEHOLDER('없음'))}" alt="">${HERO?'<button data-hero-del>×</button>':''}</div></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="hero-file">파일에서 올리기</button><button class="mini" id="hero-url">이미지 주소로 넣기</button></div><p class="hint">청첩장 본문 첫 화면에 표시되는 대표 사진입니다.</p><h4>카카오톡 공유 이미지</h4><div class="share-thumb"><img src="${esc(D.share.imageUrl||HERO?.url||PLACEHOLDER('없음'))}" alt="">${D.share.imageUrl?'<button data-share-del>×</button>':''}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="share-file">파일에서 올리기</button><button class="mini" id="share-url">이미지 주소로 넣기</button></div><p class="hint">대표 사진과 별도로 관리됩니다. 카카오톡 공유 카드에는 이 이미지가 우선 사용되며, 등록하지 않으면 대표 사진을 사용합니다. 가로형 1200×630 비율을 권장합니다.</p><h4>갤러리 (${GALLERY.length}장)</h4><div class="thumbs">${GALLERY.map(p=>`<div class="t"><img src="${esc(p.url)}" alt=""><button data-gal-del="${esc(p.id)}">×</button></div>`).join('')||'<p class="hint">사진이 없습니다.</p>'}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="mini" id="gal-file">파일 여러 장 올리기</button><button class="mini" id="gal-url">이미지 주소 추가</button></div><p class="hint">무료 저장 용량은 1GB입니다. 올릴 때 가로 1600px로 줄입니다.</p><input type="file" id="pick" accept="image/*" multiple hidden>`,
+ place:()=>`<h4>장소</h4>${fText('주소','wedding.address')}<div class="two">${fNum('위도 (lat)','wedding.lat')}${fNum('경도 (lng)','wedding.lng')}</div>${fText('카카오 JavaScript 키','wedding.kakaoJsKey','지도 표시용')}<p class="hint">카카오 개발자센터에 웹 도메인을 등록해야 지도가 뜹니다.</p><h4>교통 안내</h4><div>${(D.transport||[]).map((t,i)=>`<div class="listcard"><div class="arow"><div class="field"><label>구분</label><input data-bind="transport.${i}.k" value="${esc(t.k)}"></div><button class="mini dan" data-tp-del="${i}">삭제</button></div><div class="field"><label>내용</label><textarea data-bind="transport.${i}.v" style="min-height:64px">${esc(t.v)}</textarea></div></div>`).join('')}</div><button class="mini" id="tp-add">+ 항목 추가</button>`,
  money:()=>{const side=(key,label)=>`<h4>${label}</h4>${fText('아코디언 제목',`accounts.${key}Label`)}<div>${D.accounts[key].map((a,i)=>`<div class="listcard"><div class="arow"><div class="field"><label>관계</label><input data-bind="accounts.${key}.${i}.role" value="${esc(a.role)}" placeholder="신랑 / 아버지"></div><button class="mini dan" data-ac-del="${key}:${i}">삭제</button></div><div class="two"><div class="field"><label>은행</label><input data-bind="accounts.${key}.${i}.bank" value="${esc(a.bank)}"></div><div class="field"><label>예금주</label><input data-bind="accounts.${key}.${i}.holder" value="${esc(a.holder)}"></div></div><div class="field"><label>계좌번호</label><input data-bind="accounts.${key}.${i}.num" value="${esc(a.num)}"></div><div class="field"><label>카카오페이 송금 링크 (선택)</label><input data-bind="accounts.${key}.${i}.kakaopay" value="${esc(a.kakaopay||'')}" placeholder="https://qr.kakaopay.com/..."></div></div>`).join('')}</div><button class="mini" data-ac-add="${key}">+ 계좌 추가</button>`;return side('groom','신랑측')+side('bride','신부측')},
  inbox:()=>{const att=RS.filter(r=>r.attending);return`<h4>참석 여부 <span style="float:right;display:flex;gap:6px"><button class="mini" id="rs-reload">새로 고침</button><button class="mini" id="csv">CSV 내려받기</button></span></h4>${RS.length?`<p class="hint">총 <b>${RS.length}건</b> · 참석 <b>${att.length}건</b> · 참석 인원 합계 <b>${att.reduce((s,r)=>s+(r.headcount||1),0)}명</b></p><table class="adm"><thead><tr><th>구분</th><th>성함</th><th>참석</th><th>인원</th><th>식사</th><th>연락처</th><th>접수</th><th></th></tr></thead><tbody>${RS.map(r=>`<tr><td>${esc(r.side||'')}</td><td>${esc(r.name)}</td><td>${r.attending?'참석':'불참'}</td><td>${r.headcount||1}</td><td>${esc(r.meal||'')}</td><td>${esc(r.phone||'')}</td><td>${String(r.created_at).slice(5,10)}</td><td><button class="mini dan" data-rs-del="${esc(r.id)}">×</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">아직 접수된 응답이 없습니다.</div>'}<h4 style="margin-top:34px">방명록</h4>${GB.length?`<table class="adm"><thead><tr><th>성함</th><th>메시지</th><th>작성</th><th></th></tr></thead><tbody>${GB.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.message)}</td><td>${String(g.created_at).slice(5,10)}</td><td><button class="mini dan" data-gb-del="${esc(g.id)}">×</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">아직 남겨진 메시지가 없습니다.</div>'}`},
- setup:()=>`<h4>색</h4><div class="two">${fColor('배경 (종이)','theme.paper')}${fColor('글자 (먹)','theme.ink')}</div><div class="two">${fColor('강조 (선·제목)','theme.accent')}${fColor('포인트 (날짜·하트)','theme.point')}</div><div class="two">${fColor('보조 글자','theme.mist')}${fColor('경계선','theme.line')}</div><div class="field"><label>제목 글꼴</label><select data-bind="theme.serif">${[["'Gowun Batang', serif",'고운바탕'],["'Nanum Myeongjo', serif",'나눔명조'],["'Pretendard Variable', sans-serif",'프리텐다드(고딕)']].map(([v,n])=>`<option value="${esc(v)}" ${D.theme.serif===v?'selected':''}>${n}</option>`).join('')}</select></div><h4>기능</h4>${fChk('참석 여부 받기','rsvp.on')}${fChk('· 인원 묻기','rsvp.askCount')}${fChk('· 식사 여부 묻기','rsvp.askMeal')}${fChk('· 연락처 묻기','rsvp.askPhone')}${fText('참석 안내 제목','rsvp.title')}${fArea('참석 안내 문구','rsvp.body')}${fChk('방명록 사용','guestbook.on')}${fNum('방명록 페이지당 개수','guestbook.perPage','1')}<h4>배경음악</h4>${fChk('사용','bgm.on')}${fChk('진입 시 자동 재생 시도','bgm.autoplay')}${fText('음원 주소 (mp3)','bgm.url','https://...')}<p class="hint">iOS·안드로이드 모두 화면을 한 번 건드리기 전에는 소리를 못 냅니다. 자동 재생은 첫 터치에 맞춰 시도합니다.</p><h4>공유 / 미리보기</h4>${fText('카카오톡 제목','share.title')}${fArea('카카오톡 설명','share.desc')}${fText('카카오 JavaScript 키','share.kakaoJsKey')}<h4>백업</h4><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="mini" id="exp">내용 내려받기 (JSON)</button><button class="mini dan" id="out">로그아웃</button></div><p class="hint">무료 플랜에는 자동 백업이 없습니다. 내용을 많이 채운 날에는 JSON을 한 번 받아두세요.</p>`
+ setup:()=>`<h4>색</h4><div class="two">${fColor('배경 (종이)','theme.paper')}${fColor('글자 (먹)','theme.ink')}</div><div class="two">${fColor('강조 (선·제목)','theme.accent')}${fColor('포인트 (날짜·하트)','theme.point')}</div><div class="two">${fColor('보조 글자','theme.mist')}${fColor('경계선','theme.line')}</div><div class="field"><label>제목 글꼴</label><select data-bind="theme.serif">${[["'Gowun Batang', serif",'고운바탕'],["'Nanum Myeongjo', serif",'나눔명조'],["'Pretendard Variable', sans-serif",'프리텐다드(고딕)']].map(([v,n])=>`<option value="${esc(v)}" ${D.theme.serif===v?'selected':''}>${n}</option>`).join('')}</select></div><h4>기능</h4>${fChk('참석 여부 받기','rsvp.on')}${fChk('· 인원 묻기','rsvp.askCount')}${fChk('· 식사 여부 묻기','rsvp.askMeal')}${fChk('· 연락처 묻기','rsvp.askPhone')}${fText('참석 안내 제목','rsvp.title')}${fArea('참석 안내 문구','rsvp.body')}${fChk('방명록 사용','guestbook.on')}${fNum('방명록 페이지당 개수','guestbook.perPage','1')}<h4>배경음악</h4>${fChk('사용','bgm.on')}${fChk('진입 시 자동 재생 시도','bgm.autoplay')}${fText('음원 주소 (mp3)','bgm.url','https://...')}<p class="hint">iOS·안드로이드 모두 화면을 한 번 건드리기 전에는 소리를 못 냅니다.</p><h4>공유 / 미리보기</h4>${fText('카카오톡 제목','share.title')}${fArea('카카오톡 설명','share.desc')}${fText('카카오 JavaScript 키','share.kakaoJsKey')}<h4>백업</h4><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="mini" id="exp">내용 내려받기 (JSON)</button><button class="mini dan" id="out">로그아웃</button></div><p class="hint">내용을 많이 채운 날에는 JSON을 한 번 받아두세요.</p>`
 };
 const TABS=[['basic','기본'],['words','인사말·혼주'],['photo','사진'],['place','오시는 길'],['money','계좌'],['inbox','받은 정보'],['setup','설정']];
 function renderAdmin(){const a=$('#admin');if(!signedIn){a.innerHTML=`<div class="gate"><div class="k">관리자</div><div class="s">Supabase에 등록한 계정으로 로그인하세요</div><div class="field"><input id="g-mail" type="email" autocomplete="username" placeholder="이메일" value="${esc(lastEmail())}"></div><div class="field"><input id="g-pw" type="password" autocomplete="current-password" placeholder="비밀번호"></div><button class="btn" id="g-go">로그인</button><p class="hint" style="margin-top:18px"><a href="#">청첩장으로 돌아가기</a></p></div>`;$('#g-go').onclick=e=>busy(e.currentTarget,'확인 중…',async()=>{const mail=$('#g-mail').value.trim();await DB.signIn(mail,$('#g-pw').value);rememberEmail(mail);signedIn=true;try{RS=await DB.listRsvp()}catch{RS=[]}renderAdmin()});$('#g-pw').onkeydown=e=>{if(e.key==='Enter')$('#g-go').click()};(lastEmail()?$('#g-pw'):$('#g-mail')).focus();return}a.innerHTML=`<div class="ah"><div class="ttl">청첩장 관리 <span style="color:var(--mist);font-size:11px">v0.6</span>${dirty?'<span style="color:var(--point)"> • 저장 안 됨</span>':''}</div><div class="acts"><button id="prev">미리보기</button><button class="pri" id="sv">저장</button></div></div><div class="tabs">${TABS.map(([k,n])=>`<button data-tab="${k}" aria-selected="${tab===k}">${n}</button>`).join('')}</div><div class="apane on">${PANES[tab]()}</div>`;$$('.tabs button').forEach(b=>b.onclick=()=>{collect();tab=b.dataset.tab;renderAdmin()});$('#prev').onclick=e=>busy(e.currentTarget,'저장 중…',async()=>{collect();await DB.putContent(D);dirty=false;location.hash=''});$('#sv').onclick=e=>busy(e.currentTarget,'저장 중…',async()=>{collect();await DB.putContent(D);dirty=false;renderAll();renderAdmin();toast('저장했습니다')});$$('#admin [data-bind]').forEach(i=>i.oninput=()=>{dirty=true;if(i.dataset.mirror)$$(`#admin [data-mirror="${i.dataset.mirror}"]`).forEach(o=>{if(o!==i)o.value=i.value})});bindPane()}
 function collect(){$$('#admin [data-bind]').forEach(i=>{const p=i.dataset.bind;let v=i.type==='checkbox'?i.checked:i.value;if(i.dataset.type==='num')v=parseFloat(v)||0;setP(D,p,v)})}
 async function reloadPhotos(){PHOTOS=await DB.listPhotos();OPENING=PHOTOS.find(p=>p.kind==='opening')||null;HERO=PHOTOS.find(p=>p.kind==='hero')||null;GALLERY=PHOTOS.filter(p=>p.kind==='gallery')}
-function bindPane(){if(tab==='photo'){const pick=$('#pick');let target='gallery';$('#opening-file').onclick=()=>{target='opening';pick.multiple=false;pick.click()};$('#hero-file').onclick=()=>{target='hero';pick.multiple=false;pick.click()};$('#gal-file').onclick=()=>{target='gallery';pick.multiple=true;pick.click()};$('#opening-url').onclick=async()=>{const u=prompt('이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{if(OPENING)await DB.delPhoto(OPENING);await DB.addPhotoUrl('opening',u.trim(),0);await reloadPhotos();renderAll();renderAdmin();toast('오프닝 사진을 바꿨습니다')}catch(e){toast(humanize(e))}};$('#hero-url').onclick=async()=>{const u=prompt('이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{if(HERO)await DB.delPhoto(HERO);await DB.addPhotoUrl('hero',u.trim(),0);await reloadPhotos();renderAll();renderAdmin();toast('대표 사진을 바꿨습니다')}catch(e){toast(humanize(e))}};$('#gal-url').onclick=async()=>{const u=prompt('이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{await DB.addPhotoUrl('gallery',u.trim(),GALLERY.length);await reloadPhotos();renderAll();renderAdmin();toast('추가했습니다')}catch(e){toast(humanize(e))}};pick.onchange=async()=>{const files=[...pick.files];pick.value='';if(!files.length)return;try{for(let i=0;i<files.length;i++){toast(`올리는 중 ${i+1} / ${files.length}`);const blob=await resizeToBlob(files[i]);if(target==='opening'){if(OPENING)await DB.delPhoto(OPENING);await DB.addPhoto('opening',blob,0);await reloadPhotos()}else if(target==='hero'){if(HERO)await DB.delPhoto(HERO);await DB.addPhoto('hero',blob,0);await reloadPhotos()}else await DB.addPhoto('gallery',blob,GALLERY.length+i)}await reloadPhotos();renderAll();renderAdmin();toast('사진을 올렸습니다')}catch(e){toast(humanize(e))}};const od=$('[data-opening-del]');if(od)od.onclick=async()=>{try{await DB.delPhoto(OPENING);await reloadPhotos();renderAll();renderAdmin()}catch(e){toast(humanize(e))}};const hd=$('[data-hero-del]');if(hd)hd.onclick=async()=>{try{await DB.delPhoto(HERO);await reloadPhotos();renderAll();renderAdmin()}catch(e){toast(humanize(e))}};$$('[data-gal-del]').forEach(b=>b.onclick=async()=>{const row=GALLERY.find(p=>String(p.id)===b.dataset.galDel);try{await DB.delPhoto(row);await reloadPhotos();renderAll();renderAdmin()}catch(e){toast(humanize(e))}})}if(tab==='place'){$('#tp-add').onclick=()=>{collect();D.transport.push({k:'',v:''});dirty=true;renderAdmin()};$$('[data-tp-del]').forEach(b=>b.onclick=()=>{collect();D.transport.splice(+b.dataset.tpDel,1);dirty=true;renderAdmin()})}if(tab==='money'){$$('[data-ac-add]').forEach(b=>b.onclick=()=>{collect();D.accounts[b.dataset.acAdd].push({role:'',bank:'',num:'',holder:'',kakaopay:''});dirty=true;renderAdmin()});$$('[data-ac-del]').forEach(b=>b.onclick=()=>{const[k,i]=b.dataset.acDel.split(':');collect();D.accounts[k].splice(+i,1);dirty=true;renderAdmin()})}if(tab==='inbox'){$('#rs-reload').onclick=e=>busy(e.currentTarget,'불러오는 중…',async()=>{RS=await DB.listRsvp();GB=await DB.listGuestbook();renderAdmin()});$$('[data-rs-del]').forEach(b=>b.onclick=async()=>{try{await DB.delRsvp(b.dataset.rsDel);RS=await DB.listRsvp();renderAdmin()}catch(e){toast(humanize(e))}});$$('[data-gb-del]').forEach(b=>b.onclick=async()=>{try{await DB.adminDelGuestbook(b.dataset.gbDel);GB=await DB.listGuestbook();renderGuestbook();renderAdmin()}catch(e){toast(humanize(e))}});$('#csv').onclick=()=>{const rows=[['구분','성함','참석','인원','식사','연락처','접수일시']].concat(RS.map(r=>[r.side||'',r.name,r.attending?'참석':'불참',r.headcount||1,r.meal||'',r.phone||'',r.created_at])),csv='\uFEFF'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\r\n');download(new Blob([csv],{type:'text/csv'}),'참석여부.csv')}}if(tab==='setup'){$('#exp').onclick=()=>{collect();download(new Blob([JSON.stringify({content:D,photos:PHOTOS,savedAt:new Date().toISOString()},null,2)],{type:'application/json'}),'wedding-backup.json')};$('#out').onclick=async()=>{if(dirty&&!confirm('저장하지 않은 변경이 있습니다. 그래도 나갈까요?'))return;await DB.signOut();signedIn=false;dirty=false;renderAdmin()}}}
+function bindPane(){if(tab==='photo'){const pick=$('#pick');let target='gallery';$('#opening-file').onclick=()=>{target='opening';pick.multiple=false;pick.click()};$('#hero-file').onclick=()=>{target='hero';pick.multiple=false;pick.click()};$('#share-file').onclick=()=>{target='share';pick.multiple=false;pick.click()};$('#gal-file').onclick=()=>{target='gallery';pick.multiple=true;pick.click()};
+$('#opening-url').onclick=async()=>{const u=prompt('이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{if(OPENING)await DB.delPhoto(OPENING);await DB.addPhotoUrl('opening',u.trim(),0);await reloadPhotos();renderAll();renderAdmin();toast('오프닝 사진을 바꿨습니다')}catch(e){toast(humanize(e))}};
+$('#hero-url').onclick=async()=>{const u=prompt('이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{if(HERO)await DB.delPhoto(HERO);await DB.addPhotoUrl('hero',u.trim(),0);await reloadPhotos();renderAll();renderAdmin();toast('대표 사진을 바꿨습니다')}catch(e){toast(humanize(e))}};
+$('#share-url').onclick=async()=>{const u=prompt('카카오톡 공유 이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{const oldPath=D.share.imagePath||'';D.share.imageUrl=u.trim();D.share.imagePath='';await DB.putContent(D);if(oldPath)DB.removeStoragePath(oldPath).catch(()=>{});renderAll();renderAdmin();toast('카카오톡 공유 이미지를 바꿨습니다')}catch(e){toast(humanize(e))}};
+$('#gal-url').onclick=async()=>{const u=prompt('이미지 주소를 붙여넣으세요 (https://...)');if(!u)return;try{await DB.addPhotoUrl('gallery',u.trim(),GALLERY.length);await reloadPhotos();renderAll();renderAdmin();toast('추가했습니다')}catch(e){toast(humanize(e))}};
+pick.onchange=async()=>{const files=[...pick.files];pick.value='';if(!files.length)return;try{for(let i=0;i<files.length;i++){toast(`올리는 중 ${i+1} / ${files.length}`);const blob=await resizeToBlob(files[i],target==='share'?1200:1600,target==='share'?.86:.82);if(target==='opening'){if(OPENING)await DB.delPhoto(OPENING);await DB.addPhoto('opening',blob,0);await reloadPhotos()}else if(target==='hero'){if(HERO)await DB.delPhoto(HERO);await DB.addPhoto('hero',blob,0);await reloadPhotos()}else if(target==='share'){const oldPath=D.share.imagePath||'',uploaded=await DB.uploadShareImage(blob);D.share.imageUrl=uploaded.url;D.share.imagePath=uploaded.path;await DB.putContent(D);if(oldPath&&oldPath!==uploaded.path)DB.removeStoragePath(oldPath).catch(()=>{})}else await DB.addPhoto('gallery',blob,GALLERY.length+i)}await reloadPhotos();renderAll();renderAdmin();toast(target==='share'?'카카오톡 공유 이미지를 올렸습니다':'사진을 올렸습니다')}catch(e){toast(humanize(e))}};
+const od=$('[data-opening-del]');if(od)od.onclick=async()=>{try{await DB.delPhoto(OPENING);await reloadPhotos();renderAll();renderAdmin()}catch(e){toast(humanize(e))}};const hd=$('[data-hero-del]');if(hd)hd.onclick=async()=>{try{await DB.delPhoto(HERO);await reloadPhotos();renderAll();renderAdmin()}catch(e){toast(humanize(e))}};const sd=$('[data-share-del]');if(sd)sd.onclick=async()=>{try{const oldPath=D.share.imagePath||'';D.share.imageUrl='';D.share.imagePath='';await DB.putContent(D);if(oldPath)DB.removeStoragePath(oldPath).catch(()=>{});renderAll();renderAdmin();toast('카카오톡 공유 이미지를 삭제했습니다')}catch(e){toast(humanize(e))}};$$('[data-gal-del]').forEach(b=>b.onclick=async()=>{const row=GALLERY.find(p=>String(p.id)===b.dataset.galDel);try{await DB.delPhoto(row);await reloadPhotos();renderAll();renderAdmin()}catch(e){toast(humanize(e))}})}
+if(tab==='place'){$('#tp-add').onclick=()=>{collect();D.transport.push({k:'',v:''});dirty=true;renderAdmin()};$$('[data-tp-del]').forEach(b=>b.onclick=()=>{collect();D.transport.splice(+b.dataset.tpDel,1);dirty=true;renderAdmin()})}
+if(tab==='money'){$$('[data-ac-add]').forEach(b=>b.onclick=()=>{collect();D.accounts[b.dataset.acAdd].push({role:'',bank:'',num:'',holder:'',kakaopay:''});dirty=true;renderAdmin()});$$('[data-ac-del]').forEach(b=>b.onclick=()=>{const[k,i]=b.dataset.acDel.split(':');collect();D.accounts[k].splice(+i,1);dirty=true;renderAdmin()})}
+if(tab==='inbox'){$('#rs-reload').onclick=e=>busy(e.currentTarget,'불러오는 중…',async()=>{RS=await DB.listRsvp();GB=await DB.listGuestbook();renderAdmin()});$$('[data-rs-del]').forEach(b=>b.onclick=async()=>{try{await DB.delRsvp(b.dataset.rsDel);RS=await DB.listRsvp();renderAdmin()}catch(e){toast(humanize(e))}});$$('[data-gb-del]').forEach(b=>b.onclick=async()=>{try{await DB.adminDelGuestbook(b.dataset.gbDel);GB=await DB.listGuestbook();renderGuestbook();renderAdmin()}catch(e){toast(humanize(e))}});$('#csv').onclick=()=>{const rows=[['구분','성함','참석','인원','식사','연락처','접수일시']].concat(RS.map(r=>[r.side||'',r.name,r.attending?'참석':'불참',r.headcount||1,r.meal||'',r.phone||'',r.created_at])),csv='\uFEFF'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\r\n');download(new Blob([csv],{type:'text/csv'}),'참석여부.csv')}}
+if(tab==='setup'){$('#exp').onclick=()=>{collect();download(new Blob([JSON.stringify({content:D,photos:PHOTOS,savedAt:new Date().toISOString()},null,2)],{type:'application/json'}),'wedding-backup.json')};$('#out').onclick=async()=>{if(dirty&&!confirm('저장하지 않은 변경이 있습니다. 그래도 나갈까요?'))return;await DB.signOut();signedIn=false;dirty=false;renderAdmin()}}}
 function download(blob,name){const u=URL.createObjectURL(blob),a=el('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 async function route(){const admin=location.hash==='#admin';document.body.classList.toggle('admin',admin);if(!admin){document.body.style.overflow='';renderAll();return}const s=await DB.session();signedIn=!!s;if(signedIn&&!RS.length)try{RS=await DB.listRsvp()}catch{}renderAdmin()}
 function fatal(msg){document.body.innerHTML=`<div style="max-width:420px;margin:22vh auto;padding:0 24px;text-align:center;font-family:system-ui;color:#1B1E23"><div style="font-size:17px;margin-bottom:10px">청첩장을 불러오지 못했습니다</div><div style="font-size:13.5px;color:#8792A6;line-height:1.8">${esc(msg)}</div><button onclick="location.reload()" style="margin-top:22px;padding:11px 22px;border:1px solid #E2E1DB;background:#fff;font-size:13px">다시 시도</button></div>`}
