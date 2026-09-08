@@ -1022,7 +1022,7 @@ function renderCalendar() {
     const s = Math.floor(diff / 1000);
     const parts = [['days', Math.floor(s / 86400)], ['hours', Math.floor(s / 3600) % 24],
                    ['min', Math.floor(s / 60) % 60], ['sec', s % 60]];
-    $('#dday').innerHTML = `${esc(g)} <span style="color:var(--point)">♥</span> ${esc(b)}의 결혼식이 <b>${parts[0][1]}일</b> 남았습니다.`;
+    $('#dday').innerHTML = `${esc(g)} <span style="color:#E06F7C">♥</span> ${esc(b)}의 결혼식이 <b>${parts[0][1]}일</b> 남았습니다.`;
     $('#count').innerHTML = parts.map(([l, v]) =>
       `<div><div class="num">${String(v).padStart(2, '0')}</div><div class="lab">${l}</div></div>`).join('');
   };
