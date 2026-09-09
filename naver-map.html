@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>르비르모어 위치 안내</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100svh;display:grid;place-items:center;background:#f7f7f4;color:#1b1e23;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;text-align:center;padding:24px}
+  .box{width:min(100%,360px)}
+  .mark{width:8px;height:8px;border:1px solid #253851;transform:rotate(45deg);margin:0 auto 24px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:21px;font-weight:400;letter-spacing:.05em;margin:0 0 10px}
+  p{font-size:14px;line-height:1.8;color:#6e6862;margin:0 0 26px}
+  a{display:block;text-decoration:none;border:1px solid #253851;background:#253851;color:white;padding:14px 18px;font-size:14px;letter-spacing:.04em}
+  a.web{margin-top:8px;background:white;color:#253851}
+</style>
+</head>
+<body>
+<main class="box">
+  <div class="mark"></div>
+  <h1 id="place">르비르모어</h1>
+  <p>네이버지도로 위치 안내를 열고 있습니다.<br>자동으로 열리지 않으면 아래 버튼을 눌러주세요.</p>
+  <a id="app-link" href="#">네이버지도 앱으로 열기</a>
+  <a id="web-link" class="web" href="#">네이버지도 웹으로 보기</a>
+</main>
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const name = (params.get('name') || '르비르모어').trim() || '르비르모어';
+  const lat = Number(params.get('lat'));
+  const lng = Number(params.get('lng'));
+  const appName = location.origin + '/Wedding/';
+  const hasCoords = Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180 && !(lat === 0 && lng === 0);
+
+  const appUrl = hasCoords
+    ? 'nmap://place?lat=' + encodeURIComponent(lat) + '&lng=' + encodeURIComponent(lng) + '&name=' + encodeURIComponent(name) + '&appname=' + encodeURIComponent(appName)
+    : 'nmap://search?query=' + encodeURIComponent(name) + '&appname=' + encodeURIComponent(appName);
+
+  const webUrl = 'https://map.naver.com/p/search/' + encodeURIComponent(name);
+
+  document.title = name + ' 위치 안내';
+  document.getElementById('place').textContent = name;
+  document.getElementById('app-link').href = appUrl;
+  document.getElementById('web-link').href = webUrl;
+
+  let hidden = false;
+  const markHidden = function(){ hidden = true; };
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) markHidden(); });
+  window.addEventListener('pagehide', markHidden);
+
+  setTimeout(function(){
+    location.href = appUrl;
+  }, 80);
+
+  setTimeout(function(){
+    if(!hidden && document.visibilityState !== 'hidden') location.replace(webUrl);
+  }, 1800);
+})();
+</script>
+</body>
+</html>
